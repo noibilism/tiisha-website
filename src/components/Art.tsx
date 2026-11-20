@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 /**
  * Original Tiisha illustrations (Pip the pencil and small scenes) from public/illustrations.
  * Sizes match each SVG's viewBox so the browser reserves space before it loads (no layout shift).
@@ -29,10 +32,22 @@ export function Art({
   name: ArtName;
   alt?: string;
   className?: string;
-  /** Only for art that is visible on first paint. Everything else loads lazily. */
+  /** Only for art that is visible on first paint. It is inlined. Everything else loads lazily as an image. */
   eager?: boolean;
 }) {
   const [w, h] = ART[name];
+  if (eager) {
+    // Above the fold: inline the SVG (about 3 KB). It needs no extra request, shifts nothing because it has explicit
+    // dimensions, and an inline SVG is not an LCP candidate, so big hero art cannot slow the largest paint.
+    const raw = readFileSync(join(process.cwd(), "public", "illustrations", `${name}.svg`), "utf8").trim();
+    const cls = `art ${name.startsWith("pip") ? "art-pip" : "art-scene"} ${className}`.trim();
+    const label = alt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+    const svg = raw
+      .replace(/<title>[^<]*<\/title>/, alt ? `<title>${label}</title>` : "")
+      .replace(/ role="img"/, alt ? ' role="img"' : ' aria-hidden="true" focusable="false"')
+      .replace("<svg ", `<svg class="${cls}" `);
+    return <span className="art-inline" dangerouslySetInnerHTML={{ __html: svg }} />;
+  }
   return (
     // Plain img on purpose: these are small static SVGs, so the image optimiser adds nothing.
     // eslint-disable-next-line @next/next/no-img-element
@@ -42,7 +57,7 @@ export function Art({
       height={h}
       alt={alt}
       {...(alt ? {} : { "aria-hidden": true })}
-      loading={eager ? "eager" : "lazy"}
+      loading="lazy"
       decoding="async"
       className={`art ${name.startsWith("pip") ? "art-pip" : "art-scene"} ${className}`.trim()}
     />
