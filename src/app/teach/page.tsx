@@ -3,13 +3,13 @@ import Link from "next/link";
 import { PageHero, Section } from "@/components/PageShell";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
-import { TUTOR_FAQ } from "@/content/markets";
+import { TUTOR_FAQ, TUTOR_FEE_FAQ } from "@/content/faq";
 import { links } from "@/lib/config";
 import { faqLd, pageMetadata, webPageLd } from "@/lib/seo";
 
 const title = "Teach children who need you, from wherever you are.";
 const description =
-  "Teach live from your phone or laptop. Set your own price and hours. Families in the US, UK, Canada, Nigeria, Ghana and Kenya are looking for tutors like you.";
+  "Teach live from your phone or laptop. Set your own price and hours. Families around the world are looking for tutors like you.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Become an online tutor",
@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const WHY = [
-  ["You set the price.", "One price per hour, in your own currency. You keep it."],
+  ["You set the price.", "One price per hour, in your own currency. Tiisha takes a service fee from each booking, and your earnings show after it."],
   ["You set the hours.", "Open the slots that suit you. Block the ones that do not. Times convert to each family's time zone for you."],
   ["Your phone is enough.", "The Tiisha app runs your whole day: classes, availability, feedback and earnings."],
   ["You are paid in your own currency.", "Earnings show after each approved class and pay out to your bank account."],
@@ -26,13 +26,15 @@ const WHY = [
 ];
 
 const APPROVAL = [
-  ["Tell us where you teach from.", "Choose your country."],
-  ["Prove who you are.", "A photo of your ID and a short live selfie check. Some countries need an ID number too."],
+  ["Prove who you are.", "A photo of an official ID and a short live selfie check, matched to each other."],
   ["Show your qualifications.", "Upload your certificates and give two referees."],
   ["Meet our team.", "A short video interview."],
   ["Add your bank account.", "The name must match your ID."],
-  ["Agree to the tutor terms,", "then we review everything."],
+  ["Agree to the tutor terms.", "Read and accept the tutor agreement."],
+  ["Get approved.", "We review everything. Once you are approved, parents can find and book you."],
 ];
+
+const TUTOR_PAGE_FAQ = [...TUTOR_FAQ.slice(0, 2), TUTOR_FEE_FAQ, ...TUTOR_FAQ.slice(2)];
 
 export default function Teach() {
   const crumbs = [
@@ -44,7 +46,7 @@ export default function Teach() {
       <PageHero
         crumbs={crumbs}
         title={title}
-        lead="Set your own price and hours. Teach live from your phone or laptop. Families in the US, UK, Canada, Nigeria, Ghana and Kenya are looking for tutors like you. You are paid in your own currency."
+        lead="Set your own price and hours. Teach live from your phone or laptop. Families around the world are looking for tutors like you. You are paid in your own currency."
       >
         <div className="btn-row">
           <Link href={links.apply} className="btn btn-sun">
@@ -87,29 +89,8 @@ export default function Teach() {
         </p>
       </Section>
 
-      <Section title="Where do you teach from?">
-        <div className="prose">
-          <p>
-            This decides your ID check and the currency you are paid in. You can teach families in any country. You choose
-            the country you live in and can show an ID for.
-          </p>
-          <ul>
-            <li>
-              <strong>Nigeria:</strong> You will need your BVN and NIN, a photo of your ID and a live selfie.
-            </li>
-            <li>
-              <strong>Ghana:</strong> You will need your Ghana Card number, a photo of your ID and a live selfie.
-            </li>
-            <li>
-              <strong>Any other country:</strong> You will need a photo of a government ID, such as a passport or national
-              ID card, and a live selfie.
-            </li>
-          </ul>
-        </div>
-      </Section>
-
-      <Section tone="surface" title="Tutor questions">
-        <FaqList items={TUTOR_FAQ} />
+      <Section title="Tutor questions">
+        <FaqList items={TUTOR_PAGE_FAQ} />
       </Section>
 
       <section className="cta on-dark">
@@ -126,7 +107,7 @@ export default function Teach() {
       <JsonLd
         data={[
           webPageLd({ name: "Teach on Tiisha", description, path: "/teach" }),
-          faqLd(TUTOR_FAQ),
+          faqLd(TUTOR_PAGE_FAQ),
         ]}
       />
     </>

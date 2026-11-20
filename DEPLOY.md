@@ -23,4 +23,4 @@ docker run --rm -e PORT=8080 -p 8080:8080 tiisha-website
 npm ci && npm run build && PORT=3000 npm start
 ```
 
-After deploy, check `/robots.txt`, `/sitemap.xml` and view source on `/uk` for canonical, hreflang and JSON-LD.
+After deploy, check `/robots.txt`, `/sitemap.xml` and view source on `/` for canonical and JSON-LD, and check that `/uk` returns a 301 to `/`.

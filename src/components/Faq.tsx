@@ -1,5 +1,5 @@
 import { Chevron } from "./Icons";
-import type { Faq as FaqItem } from "@/content/markets";
+import type { Faq as FaqItem } from "@/content/faq";
 
 export function FaqList({ items }: { items: FaqItem[] }) {
   return (

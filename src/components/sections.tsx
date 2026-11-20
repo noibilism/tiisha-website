@@ -1,24 +1,32 @@
 import Link from "next/link";
 import { links } from "@/lib/config";
-import { ALL_CURRENCIES, MARKETS, type Market } from "@/content/markets";
 import { SUBJECTS } from "@/content/subjects";
 import { Check, Chart, Lock, ShieldCheck, Video } from "./Icons";
 
 export const CHECK_LINES = [
-  "Government ID, matched to a live selfie so nobody can borrow a face.",
+  "Photo ID, matched to a live selfie so nobody can borrow a face.",
   "Qualification certificates, read and verified by our team.",
   "Two referees, contacted by us.",
   "A video interview.",
   "A bank account in the tutor's own name.",
 ];
 
-export function Hero({ market, h1 = true }: { market: Market; h1?: boolean }) {
+const STRIP_TEXT =
+  "Tutors teach the curriculum and exams your child follows, wherever you live. Homework, catching up and exam preparation.";
+
+export const HERO = {
+  headline: "A tutor your child will actually learn from.",
+  subline:
+    "Live one-to-one classes with verified tutors, wherever you are. Book and pay online, watch every class, and get a progress report every month. Homework help, catching up and exam prep.",
+};
+
+export function Hero() {
   return (
     <section className="hero on-dark">
       <div className="hero-grid">
         <div>
-          {h1 ? <h1>{market.headline}</h1> : <p className="h1like">{market.headline}</p>}
-          <p className="hero-sub">{market.subline}</p>
+          <h1>{HERO.headline}</h1>
+          <p className="hero-sub">{HERO.subline}</p>
           <div className="btn-row">
             <Link href={links.signup} className="btn btn-sun">
               Find a tutor
@@ -37,7 +45,7 @@ export function Hero({ market, h1 = true }: { market: Market; h1?: boolean }) {
             <span className="avatar">T</span>
             <div>
               <div className="tc-name">Your tutor</div>
-              <div className="tc-sub">Maths, {market.level}. Fractions</div>
+              <div className="tc-sub">Maths. Fractions</div>
             </div>
             <span className="verified">
               <ShieldCheck size={16} color="var(--leaf-strong)" />
@@ -56,7 +64,7 @@ export function Hero({ market, h1 = true }: { market: Market; h1?: boolean }) {
   );
 }
 
-export function ExamsStrip({ text }: { text: string }) {
+export function ExamsStrip({ text = STRIP_TEXT }: { text?: string }) {
   return (
     <section className="strip" aria-label="Curricula and exams">
       <div className="wrap">
@@ -67,12 +75,12 @@ export function ExamsStrip({ text }: { text: string }) {
   );
 }
 
-export function HowItWorks({ market }: { market: Market }) {
+export function HowItWorks() {
   const steps = [
     ["Tell us about your child.", "Their age group, school year and curriculum, and what they find hard. It takes two minutes."],
     [
       "Choose a tutor you trust.",
-      `Read their profile, see their verified badge and their price in ${market.currency.name}. Book a time that suits your family.`,
+      "Read their profile, see their verified badge and their price in your currency. Book a time that suits your family.",
     ],
     ["Learn live.", "Your child joins from a phone, tablet or laptop. The tutor teaches on a shared whiteboard. The class is recorded."],
     ["See what changed.", "The tutor writes feedback after each class. Short assessments show what your child has mastered. A monthly report shows the trend."],
@@ -133,7 +141,7 @@ export function TutorChecks() {
   );
 }
 
-export function ClassAndProgress({ market }: { market: Market }) {
+export function ClassAndProgress() {
   return (
     <section className="section bg">
       <div className="wrap cards2">
@@ -150,7 +158,7 @@ export function ClassAndProgress({ market }: { market: Market }) {
           <h3>Know what your child can do now, not just what they covered.</h3>
           <p>
             After each class the tutor writes down what went well and what to practise. Short assessments from a question
-            bank built for {market.exams} show where marks are being lost. Your monthly report puts it together, with the
+            bank built for your child's curriculum and exams show where marks are being lost. Your monthly report puts it together, with the
             topics that need work.
           </p>
         </div>
@@ -159,44 +167,32 @@ export function ClassAndProgress({ market }: { market: Market }) {
   );
 }
 
-export function CurrencyGrid() {
-  return (
-    <>
-      <ul className="currencies">
-        {ALL_CURRENCIES.map((c) => (
-          <li className="cur" key={c.code}>
-            <div className="code">{c.code}</div>
-            <div className="sym">{c.symbol}</div>
-            <div className="nm">{c.name}</div>
-          </li>
-        ))}
-      </ul>
-      <p className="note">Each tutor sets their own price. Tiisha shows it in the currency you chose.</p>
-    </>
-  );
-}
-
-export function PricingSection({ market }: { market: Market }) {
+export function PricingSection() {
   return (
     <section id="pricing" className="section surface">
       <div className="wrap two">
         <div>
-          <h2 className="title">Clear prices in {market.currency.name}.</h2>
+          <h2 className="title">Clear prices in your own currency.</h2>
           <p className="lead">
-            Each tutor sets one price per hour. You see it in your currency, and that is what you pay. Free cancellation up
-            to 24 hours before a class. You can pay in naira, pounds, US dollars, Canadian dollars, cedis or Kenyan
-            shillings.
+            Each tutor sets their own price. You see it in your currency when you book, and that is what you pay. Free
+            cancellation up to 24 hours before a class.
           </p>
-          <p className="pricing-line">{market.pricingLine}</p>
           <p style={{ marginTop: 14 }}>
             <Link href="/pricing" className="textlink">
               More about pricing
             </Link>
           </p>
         </div>
-        <div>
-          <CurrencyGrid />
-        </div>
+        <ul className="facts">
+          <li className="card">
+            <h3>Set per tutor.</h3>
+            <p>Every tutor chooses their own price. Compare profiles and pick the one that suits your family.</p>
+          </li>
+          <li className="card">
+            <h3>Shown in your currency.</h3>
+            <p>You see the price in your own currency at booking, before you confirm.</p>
+          </li>
+        </ul>
       </div>
     </section>
   );
@@ -221,45 +217,16 @@ export function Safety() {
   );
 }
 
-export function SubjectLinks({ market }: { market?: Market }) {
-  const list = market
-    ? SUBJECTS.filter((s) => s.kind === "subject" || s.markets[market.slug])
-    : SUBJECTS;
+export function SubjectLinks() {
   return (
     <section className="section surface">
       <div className="wrap">
-        <h2 className="title">Find a tutor by subject or exam.</h2>
-        <p className="lead">Tutors list the subjects, grades and exams they teach. Start with the one your child needs.</p>
+        <h2 className="title">Find a tutor by subject.</h2>
+        <p className="lead">Tutors list the subjects, grades and exams they teach. Start with the subject your child needs.</p>
         <ul className="pillrow">
-          {list.map((s) => (
+          {SUBJECTS.map((s) => (
             <li key={s.slug}>
               <Link href={`/tutors/${s.slug}`}>{s.name} tutors</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-export function ChooseCountry() {
-  return (
-    <section className="section bg">
-      <div className="wrap">
-        <h2 className="title">Choose your country.</h2>
-        <p className="lead">
-          Where you live sets the curricula and exams we show, your currency and your time zone. Tutors can be anywhere in
-          the world.
-        </p>
-        <ul className="grid3">
-          {MARKETS.map((m) => (
-            <li key={m.slug}>
-              <Link href={`/${m.slug}`} className="linkcard">
-                <span className="h">{m.name}</span>
-                <span className="d">
-                  {m.exams.charAt(0).toUpperCase() + m.exams.slice(1)}. Prices in {m.currency.name}.
-                </span>
-              </Link>
             </li>
           ))}
         </ul>

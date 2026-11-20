@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "./config";
-import { MARKETS, type Faq } from "@/content/markets";
+import type { Faq } from "@/content/faq";
 
 export const DEFAULT_DESCRIPTION =
   "Live one-to-one online classes with verified tutors from around the world. Every class recorded, with feedback, assessments and a progress report every month.";
 
 export function abs(path: string) {
   return `${SITE_URL}${path === "/" ? "" : path}` || SITE_URL;
-}
-
-export function marketAlternates() {
-  const languages: Record<string, string> = {};
-  for (const m of MARKETS) languages[m.hreflang] = abs(`/${m.slug}`);
-  languages["x-default"] = abs("/");
-  return languages;
 }
 
 type Opts = {
@@ -23,18 +16,14 @@ type Opts = {
   /** Use the title as is, without the "| Tiisha" suffix. */
   absoluteTitle?: boolean;
   noindex?: boolean;
-  hreflang?: boolean;
 };
 
-export function pageMetadata({ title, description, path, absoluteTitle, noindex, hreflang }: Opts): Metadata {
+export function pageMetadata({ title, description, path, absoluteTitle, noindex }: Opts): Metadata {
   const fullTitle = absoluteTitle ? title : `${title} | ${SITE_NAME}`;
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: {
-      canonical: abs(path),
-      ...(hreflang ? { languages: marketAlternates() } : {}),
-    },
+    alternates: { canonical: abs(path) },
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
@@ -104,7 +93,6 @@ export function serviceLd(o: {
   description: string;
   path: string;
   serviceType?: string;
-  areas?: string[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -114,7 +102,7 @@ export function serviceLd(o: {
     url: abs(o.path),
     serviceType: o.serviceType || "Online tutoring",
     provider: { "@id": `${SITE_URL}/#organization` },
-    areaServed: (o.areas || MARKETS.map((m) => m.name)).map((name) => ({ "@type": "Country", name })),
+    areaServed: "Worldwide",
   };
 }
 

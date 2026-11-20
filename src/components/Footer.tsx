@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { links } from "@/lib/config";
-import { MARKETS } from "@/content/markets";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -23,18 +22,7 @@ export function Footer() {
         </nav>
       </div>
       <p className="tag-line">Tiisha. Tutors you can trust, wherever they are.</p>
-      <nav className="country" aria-label="Country sites">
-        <span className="label">Country</span>
-        {MARKETS.map((m) => (
-          <Link key={m.slug} href={`/${m.slug}`} className="chip">
-            {m.name}
-          </Link>
-        ))}
-      </nav>
-      <p className="small">
-        Tiisha serves families in the United States, United Kingdom, Canada, Nigeria, Ghana and Kenya. Tutors teach from
-        anywhere.
-      </p>
+      <p className="small">Tiisha serves families and tutors around the world.</p>
     </footer>
   );
 }

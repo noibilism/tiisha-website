@@ -62,7 +62,7 @@ for (const file of pages) {
     }
   }
   const isNotFound = page === "/_not-found";
-  if (!isNotFound && !types.includes("BreadcrumbList") && page !== "/" && !/^\/(us|uk|ca|ng|gh|ke)$/.test(page)) {
+  if (!isNotFound && !types.includes("BreadcrumbList") && page !== "/") {
     fail(page, "missing BreadcrumbList");
   }
 
@@ -84,13 +84,35 @@ for (const file of pages) {
   }
 }
 
-// Market pages: hreflang set is complete.
-for (const m of ["us", "uk", "ca", "ng", "gh", "ke"]) {
-  const root = parse(readFileSync(join(ROOT, `${m}.html`), "utf8"));
-  const langs = root.querySelectorAll('link[rel="alternate"]').map((l) => l.getAttribute("hreflang"));
-  for (const need of ["en-US", "en-GB", "en-CA", "en-NG", "en-GH", "en-KE", "x-default"])
-    if (!langs.includes(need)) fail(`/${m}`, `missing hreflang ${need}`);
+// Global copy only: no country, currency, exam or national ID names anywhere in a built page.
+const COUNTRY_WORDS = /\b(United States|United Kingdom|Canad\w*|Nigeria\w*|Ghana\w*|Kenya\w*|Lagos|Nairobi|Toronto|Manchester|naira|cedis?|shillings?|pounds?|dollars?|Common Core|National Curriculum|Ghana Card|WASSCE)\b/i;
+const COUNTRY_CODES = /\b(US|UK|USA|GCSE|SAT|ACT|WAEC|NECO|JAMB|BECE|KCSE|CBC|BVN|NIN|NGN|GBP|USD|CAD|GHS|KES)\b|11 plus|A level/;
+for (const file of pages) {
+  const page = "/" + relative(ROOT, file).replace(/index\.html$/, "").replace(/\.html$/, "");
+  const root = parse(readFileSync(file, "utf8"));
+  for (const el of root.querySelectorAll("style")) el.remove();
+  const fromLd = root.querySelectorAll('script[type="application/ld+json"]').map((e) => e.text).join(" ");
+  const meta = root.querySelectorAll("meta").map((m) => m.getAttribute("content") || "").join(" ");
+  const text = `${root.querySelector("title")?.text || ""} ${meta} ${fromLd} ${root.querySelector("body")?.structuredText || ""}`;
+  const hit = text.match(COUNTRY_WORDS) || text.match(COUNTRY_CODES);
+  if (hit) fail(page, `country-specific text: ${hit[0]}`);
+  if (/hreflang/.test(readFileSync(file, "utf8"))) fail(page, "has hreflang alternates");
+  if (page !== "/teach" && /\b(service fee|platform fee|fees?)\b|15%/i.test(root.querySelector("main")?.text || ""))
+    fail(page, "mentions a fee outside the tutor page");
 }
+
+// Old country and exam URLs redirect with a 301.
+const { REDIRECTS } = await import("../next.config.ts");
+for (const c of ["us", "uk", "ca", "ng", "gh", "ke"]) {
+  const r = REDIRECTS.find((x) => x.source.startsWith(`/${c}/`));
+  if (!r || r.statusCode !== 301 || r.destination !== "/") fail(`/${c}`, "does not 301 to /");
+}
+for (const e of ["11-plus", "gcse", "a-level", "sat", "act", "waec", "neco", "jamb", "bece", "kcse"]) {
+  const r = REDIRECTS.find((x) => x.source.startsWith(`/tutors/${e}/`));
+  if (!r || r.statusCode !== 301) fail(`/tutors/${e}`, "does not 301");
+}
+for (const gone of ["us", "uk", "ca", "ng", "gh", "ke", "tutors/gcse", "tutors/waec"])
+  if (existsSync(join(ROOT, `${gone}.html`))) fail(`/${gone}`, "page is still built");
 
 // Sitemap lists only pages that were built, and every indexable page is listed.
 const sitemapPath = join(ROOT, "sitemap.xml.body");

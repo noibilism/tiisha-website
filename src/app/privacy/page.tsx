@@ -41,7 +41,7 @@ export default function Privacy() {
             recordings and child data is logged. Full detail: TO CONFIRM.
           </p>
           <h2>Your rights and how to contact us</h2>
-          <p>Rights by country, the legal basis for processing and the contact address for privacy requests: TO CONFIRM.</p>
+          <p>Your rights, the legal basis for processing and the contact address for privacy requests: TO CONFIRM.</p>
           <h2>Where data is stored and who processes it</h2>
           <p>Hosting locations, payment and identity providers and international transfers: TO CONFIRM.</p>
         </div>

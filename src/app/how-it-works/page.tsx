@@ -4,7 +4,7 @@ import { PageHero, Section } from "@/components/PageShell";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
-import { coreFaq, MARKETS } from "@/content/markets";
+import { coreFaq } from "@/content/faq";
 import { links } from "@/lib/config";
 import { faqLd, pageMetadata, serviceLd } from "@/lib/seo";
 
@@ -25,7 +25,7 @@ export default function HowItWorks() {
     { name: "Tiisha", path: "/" },
     { name: "How it works", path: "/how-it-works" },
   ];
-  const faqs = coreFaq("the curricula and exams of your country").slice(0, 8);
+  const faqs = coreFaq().slice(0, 8);
   return (
     <>
       <PageHero crumbs={crumbs} title="From first search to first class in a day." lead="Four steps, from telling us about your child to seeing what changed.">
@@ -63,8 +63,7 @@ export default function HowItWorks() {
           </p>
           <h3>Time zones are handled for you</h3>
           <p>
-            Times show in your time zone. If your tutor is in another country, they see their own. A parent in Toronto can
-            book a tutor in Lagos, Nairobi or Manchester, and classes are live video, so distance does not matter.
+            Times show in your time zone. If your tutor is in another part of the world, they see their own. A parent in one city can book a tutor in another, and classes are live video, so distance does not matter.
           </p>
         </div>
       </Section>
@@ -98,17 +97,7 @@ export default function HowItWorks() {
         </div>
       </Section>
 
-      <Section title="Pick your country for exact curricula and prices">
-        <ul className="pillrow">
-          {MARKETS.map((m) => (
-            <li key={m.slug}>
-              <Link href={`/${m.slug}`}>Tiisha in {m.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section tone="surface" title="Questions parents ask">
+      <Section title="Questions parents ask">
         <FaqList items={faqs} />
       </Section>
       <ClosingCta />

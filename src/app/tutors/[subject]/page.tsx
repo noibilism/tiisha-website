@@ -6,10 +6,9 @@ import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
 import { Check } from "@/components/Icons";
-import { MARKETS, mustMarket } from "@/content/markets";
 import { SUBJECTS, getSubject } from "@/content/subjects";
 import { links } from "@/lib/config";
-import { courseLd, faqLd, pageMetadata, serviceLd } from "@/lib/seo";
+import { faqLd, pageMetadata, serviceLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -40,11 +39,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     { name: "Tiisha", path: "/" },
     { name: "Tutors", path: "/tutors" },
     { name: s.name, path },
-  ];
-  const marketEntries = MARKETS.filter((m) => s.markets[m.slug]);
-  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));
-  const areas = marketEntries.length ? marketEntries.map((m) => m.name) : undefined;
-  return (
+  ];  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));  return (
     <>
       <PageHero crumbs={crumbs} title={s.h1} lead={s.intro}>
         <div className="btn-row">
@@ -57,7 +52,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </div>
       </PageHero>
 
-      <Section title={s.kind === "exam" ? `What the ${s.name} is` : `What ${s.name.toLowerCase()} tutoring covers`}>
+      <Section title={`What ${s.name.toLowerCase()} tutoring covers`}>
         <div className="prose">
           {s.what.map((p) => (
             <p key={p.slice(0, 30)}>{p}</p>
@@ -92,32 +87,11 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </div>
       </Section>
 
-      {marketEntries.length > 0 && (
-        <Section tone="surface" title={`${s.name} by country`}>
-          <p className="lead" style={{ marginBottom: 24 }}>
-            Tutors can be anywhere in the world. Where you live decides the curriculum we show and the currency you pay in.
-          </p>
-          <ul className="facts">
-            {marketEntries.map((m) => (
-              <li className="card" key={m.slug}>
-                <h3>
-                  <Link href={`/${m.slug}`}>{m.name}</Link>
-                </h3>
-                <p>{s.markets[m.slug]}</p>
-                <p className="note">
-                  Prices in {mustMarket(m.slug).currency.name}.
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
-
-      <Section title={`${s.name} questions`}>
+      <Section tone="surface" title={`${s.name} questions`}>
         <FaqList items={s.faq} />
       </Section>
 
-      <Section tone="surface" title="Related subjects">
+      <Section title="Related subjects">
         <ul className="pillrow">
           {related.map((r) => (
             <li key={r.slug}>
@@ -132,8 +106,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
       <ClosingCta />
       <JsonLd
         data={[
-          serviceLd({ name: `Online ${s.name} tutoring`, description: s.description, path, serviceType: `${s.name} tutoring`, areas }),
-          ...(s.kind === "exam" ? [courseLd({ name: `${s.name} preparation`, description: s.description, path })] : []),
+          serviceLd({ name: `Online ${s.name} tutoring`, description: s.description, path, serviceType: `${s.name} tutoring` }),
           faqLd(s.faq),
         ]}
       />

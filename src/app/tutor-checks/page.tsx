@@ -8,16 +8,18 @@ import { links } from "@/lib/config";
 import { pageMetadata, webPageLd } from "@/lib/seo";
 
 const description =
-  "Tutors are checked before they teach, not after: ID with a live selfie, qualifications, two referees, a video interview and a bank account.";
+  "Tutors are checked before they teach, not after: photo ID with a live selfie, qualifications, two referees, an interview, bank details and a signed agreement.";
 
 export const metadata: Metadata = pageMetadata({ title: "How we check every tutor before they teach", description, path: "/tutor-checks" });
 
 const DETAIL = [
-  ["Government ID, matched to a live selfie", "The tutor photographs a government ID, such as a passport or national ID card, and completes a short live selfie check. The selfie is matched to the ID so nobody can borrow a face. For tutors in Nigeria we also check BVN and NIN, and for tutors in Ghana the Ghana Card number."],
+  ["Photo ID, matched to a live selfie", "The tutor photographs an official ID, such as a passport, and completes a short live selfie check. The selfie is matched to the ID so nobody can borrow a face."],
   ["Qualification certificates", "Tutors upload their certificates. Our team reads and verifies them."],
   ["Two referees", "Every tutor gives two referees. We contact them ourselves."],
   ["A video interview", "Every tutor meets our team in a short video interview."],
   ["A bank account in the tutor's own name", "The name on the bank account must match the name on the ID."],
+  ["A signed tutor agreement", "Every tutor agrees to our tutor terms, including how they behave in class."],
+  ["Final approval", "Our team reviews every step. Only tutors who pass all of them are approved and appear in search."],
 ];
 
 export default function TutorChecks() {

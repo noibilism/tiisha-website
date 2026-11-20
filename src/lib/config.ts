@@ -11,4 +11,3 @@ export const links = {
 };
 
 export const SITE_NAME = "Tiisha";
-export const COOKIE_NAME = "tiisha_market";

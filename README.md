@@ -21,24 +21,26 @@ npm run typecheck
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | `https://app.tiisha.com` | The product app. "Find a tutor" goes to `/signup`, "Sign in" to `/signin`, "Apply to teach" to `/tutor/apply`. |
-| `NEXT_PUBLIC_SITE_URL` | `https://tiisha.com` | Public origin of this site. Used for canonicals, hreflang, sitemap, robots and Open Graph. Set it to the real domain. |
+| `NEXT_PUBLIC_SITE_URL` | `https://tiisha.com` | Public origin of this site. Used for canonicals, sitemap, robots and Open Graph. Set it to the real domain. |
 | `NEXT_PUBLIC_ANALYTICS_ID` | unset | Unset means no analytics script. `G-XXXX` loads GA4. Any other value is used as a Plausible domain. |
 
 ## Routes
 
-- `/` shows the UK market by default, with a market switcher. A small client component sends first-time visitors to their market from browser language or time zone, and remembers the choice in the `tiisha_market` cookie. It never runs for crawlers, Lighthouse or headless browsers, which always get the real page.
-- `/us`, `/uk`, `/ca`, `/ng`, `/gh`, `/ke`: market pages with their own hero, exams line, pricing line, extra FAQ, currency and metadata, plus hreflang alternates and x-default.
+- `/`: the home page. One global copy set, no country content.
 - `/teach`, `/how-it-works`, `/tutor-checks`, `/pricing`, `/faq`, `/privacy`, `/terms`, and a custom 404.
-- `/tutors` and `/tutors/[subject]`: subject and exam pages (maths, english, science, physics, chemistry, biology, coding, 11-plus, gcse, a-level, sat, act, waec, neco, jamb, bece, kcse).
-- `/sitemap.xml`, `/robots.txt`, and generated Open Graph images (`next/og`) for the home page, each market and each subject.
+- `/tutors` and `/tutors/[subject]`: subject pages (maths, english, science, physics, chemistry, biology, coding).
+- `/sitemap.xml`, `/robots.txt`, and generated Open Graph images (`next/og`) for the home page and each subject.
+- Old `/us`, `/uk`, `/ca`, `/ng`, `/gh`, `/ke` and the old exam pages redirect with a 301 (see `next.config.ts`).
+
+Country copy is not on the site for now. The removed text is in `docs/country-copy-archive.md`, for when the site goes live in specific countries.
 
 `/privacy` and `/terms` are marked drafts, are `noindex`, and are left out of the sitemap until legal text is ready.
 
 ## Where the content lives
 
-- `src/content/markets.ts`: market variants (hero, exams line, pricing line, extra FAQ), core parent FAQ, tutor FAQ.
-- `src/content/subjects.ts`: subject and exam pages.
-- `src/components/sections.tsx` and `MarketPage.tsx`: the home and market page.
+- `src/content/faq.ts`: core parent FAQ and tutor FAQ. The tutor service fee line is kept apart so it only shows on `/teach`.
+- `src/content/subjects.ts`: subject pages.
+- `src/components/sections.tsx`: the home page sections.
 - `src/lib/seo.ts`: metadata and JSON-LD builders.
 - `src/app/tokens.css`: brand tokens copied from the design system. `src/app/globals.css`: all styles.
 
@@ -46,4 +48,4 @@ Copy rule: sentence case, no em dashes. `npm test` fails if a built page has an 
 
 ## What `npm test` checks
 
-For every built HTML page: one h1, title, meta description, canonical, `lang`, Open Graph and Twitter tags, valid JSON-LD with schema.org context, BreadcrumbList on inner pages, FAQ JSON-LD matching visible FAQ text, images with alt, links with text. It also checks hreflang on market pages and that the sitemap matches the built pages.
+For every built HTML page: one h1, title, meta description, canonical, `lang`, Open Graph and Twitter tags, valid JSON-LD with schema.org context, BreadcrumbList on inner pages, FAQ JSON-LD matching visible FAQ text, images with alt, links with text. It also fails on any country, currency, exam or national ID name, any hreflang tag, any fee mention outside `/teach`, a missing 301 for the old country and exam URLs, and a sitemap that does not match the built pages.

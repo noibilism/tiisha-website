@@ -32,12 +32,12 @@ export default function Terms() {
           <ul>
             <li>Each tutor sets one price per hour. Parents see it in their chosen currency and pay that price.</li>
             <li>Cancellation is free up to 24 hours before a class. Refund rules inside 24 hours and when a tutor cancels: TO CONFIRM.</li>
-            <li>Supported payment methods in each country: TO CONFIRM.</li>
+            <li>Supported payment methods: TO CONFIRM.</li>
           </ul>
           <h2>Recorded classes</h2>
           <p>Every class is recorded with the parent&apos;s consent. Rules for who can watch, how long recordings are kept and how to report a concern: TO CONFIRM.</p>
           <h2>Tutor terms</h2>
-          <p>Tutors agree to separate tutor terms during onboarding. Fees, payouts and conduct rules: TO CONFIRM.</p>
+          <p>Tutors agree to separate tutor terms during onboarding. Payouts and conduct rules: TO CONFIRM.</p>
           <h2>Liability and governing law</h2>
           <p>Limits of liability, dispute resolution and governing law: TO CONFIRM.</p>
         </div>
