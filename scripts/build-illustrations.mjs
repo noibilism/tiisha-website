@@ -30,10 +30,13 @@ const dedupe = (markup) =>
     return tag.replace(/ stroke-width="[^"]*"/g, (m) => (++seen === all.length ? last : ""));
   });
 
+/** Idle motion lives inside the file so it works from an <img>. Reduced motion turns it off. */
+const MOTION = `<style>.eyes{transform-box:fill-box;transform-origin:50% 50%;animation:pip-blink 5.5s infinite}@keyframes pip-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}.wave{transform-origin:130px 118px;animation:pip-wave 4.5s ease-in-out infinite}@keyframes pip-wave{0%,40%,100%{transform:rotate(0)}8%{transform:rotate(-14deg)}16%{transform:rotate(6deg)}24%{transform:rotate(-12deg)}32%{transform:rotate(4deg)}}@media(prefers-reduced-motion:reduce){.eyes,.wave{animation:none}}</style>`;
+
 const svg = (w, h, title, body, decorative = false) =>
   dedupe(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"${
     decorative ? ' aria-hidden="true"' : ' role="img"'
-  }><title>${title}</title>${body}</svg>`) + "\n";
+  }><title>${title}</title>${/class="(eyes|wave)"/.test(body) ? MOTION : ""}${body}</svg>`) + "\n";
 
 /* ---------- Pip ---------- */
 
@@ -43,7 +46,7 @@ const eyes = (mode = "open") => {
   const [dx, dy] = mode === "up" ? [2, -2] : mode === "down" ? [0, 2] : [0, 0];
   const eye = (x) =>
     `<circle cx="${x}" cy="104" r="7" fill="${C.ink}"/><circle cx="${x + dx + 2}" cy="${104 + dy - 2}" r="2.4" fill="#fff"/>`;
-  return eye(88) + eye(112);
+  return `<g class="eyes">${eye(88)}${eye(112)}</g>`;
 };
 const mouth = (mode = "smile") => {
   if (mode === "open")
@@ -86,8 +89,8 @@ const poses = {
     body: pip(
       eyes() + mouth(),
       arm("M70 126q-16 12-14 28"),
-      arm("M130 118q22-4 28-34") + hand(56, 156) + hand(158, 78) +
-        `<path d="M172 62q8 8 4 20M180 56q12 12 6 30" fill="none" stroke="${C.coral}" stroke-width="4" stroke-linecap="round"/>`,
+      hand(56, 156) +
+        `<g class="wave">${arm("M130 118q22-4 28-34")}${hand(158, 78)}<path d="M172 62q8 8 4 20M180 56q12 12 6 30" fill="none" stroke="${C.coral}" stroke-width="4" stroke-linecap="round"/></g>`,
     ),
   },
   read: {
