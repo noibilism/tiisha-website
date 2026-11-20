@@ -1,3 +1,4 @@
+import { Art } from "./Art";
 import { Chevron } from "./Icons";
 import { FaqSearch } from "./FaqSearch";
 import { allGroupFaqs, faqSlug, FAQ_GROUPS } from "@/content/faq";
@@ -7,6 +8,7 @@ export function FaqCenter() {
   const total = allGroupFaqs().length;
   return (
     <div className="faq-layout">
+      <div className="faq-aside-col">
       <nav className="faq-toc" aria-label="Questions by topic">
         <p className="faq-toc-title">Topics</p>
         <ul>
@@ -17,6 +19,8 @@ export function FaqCenter() {
           ))}
         </ul>
       </nav>
+      <Art name="pip-point" className="faq-toc-art" />
+      </div>
       <div className="faq-body">
         <FaqSearch total={total} />
         <div id="faq-groups">

@@ -99,6 +99,7 @@ export default function Teach() {
       </Section>
 
       <section className="cta on-dark">
+        <Art name="pip-celebrate" className="cta-pip" />
         <h2>Ready to teach?</h2>
         <div className="btn-row">
           <Link href={links.apply} className="btn btn-sun">

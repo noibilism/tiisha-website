@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { links } from "@/lib/config";
 import { SUBJECTS } from "@/content/subjects";
-import { Art } from "./Art";
+import { Art, Split } from "./Art";
 import { Check, Chart, Lock, ShieldCheck, Video } from "./Icons";
 
 export const CHECK_LINES = [
@@ -226,21 +226,25 @@ export function SubjectLinks() {
   return (
     <section className="section surface">
       <div className="wrap">
-        <h2 className="title">Find a tutor by subject.</h2>
-        <p className="lead">Tutors list the subjects, grades and exams they teach. Start with the subject your child needs.</p>
-        <ul className="pillrow">
-          {SUBJECTS.map((s) => (
-            <li key={s.slug}>
-              <Link href={`/tutors/${s.slug}`}>{s.name} tutors</Link>
-            </li>
-          ))}
-        </ul>
+        <Split reverse art={<Art name="pip-point" />}>
+          <div>
+            <h2 className="title">Find a tutor by subject.</h2>
+            <p className="lead">Tutors list the subjects, grades and exams they teach. Start with the subject your child needs.</p>
+            <ul className="pillrow">
+              {SUBJECTS.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/tutors/${s.slug}`}>{s.name} tutors</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Split>
       </div>
     </section>
   );
 }
 
-export function ClosingCta({ mascot = false }: { mascot?: boolean }) {
+export function ClosingCta({ mascot = true }: { mascot?: boolean }) {
   return (
     <section className="cta on-dark">
       {mascot && <Art name="pip-celebrate" className="cta-pip" />}

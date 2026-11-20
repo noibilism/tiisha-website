@@ -42,7 +42,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     { name: s.name, path },
   ];  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));  return (
     <>
-      <PageHero crumbs={crumbs} title={s.h1} lead={s.intro}>
+      <PageHero crumbs={crumbs} title={s.h1} lead={s.intro} art={<Art name="pip-wave" eager />}>
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
             Find a tutor

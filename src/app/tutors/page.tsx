@@ -19,7 +19,9 @@ export default function Tutors() {
     { name: "Tutors", path: "/tutors" },
   ];  return (
     <>
-      <PageHero crumbs={crumbs} title="Online tutors by subject" lead="Live one-to-one classes with verified tutors. Pick what your child needs.">
+      <PageHero crumbs={crumbs} title="Online tutors by subject" lead="Live one-to-one classes with verified tutors. Pick what your child needs."
+        art={<Art name="pip-read" eager />}
+      >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
             Find a tutor

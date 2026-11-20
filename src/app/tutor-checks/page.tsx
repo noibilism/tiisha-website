@@ -34,6 +34,7 @@ export default function TutorChecks() {
         crumbs={crumbs}
         title="Tutors are checked before they teach, not after."
         lead="Your child will be alone with this person on a screen. So we check them properly."
+        art={<Art name="pip-point" eager />}
       >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
@@ -75,7 +76,7 @@ export default function TutorChecks() {
       </Section>
 
       <Section tone="surface" title="After approval, you can still see every class">
-        <Split reverse art={<Art name="pip-point" />}>
+        <Split reverse art={<Art name="pip-read" />}>
         <div className="prose">
           <p>
             Every class is recorded. You can join a live class quietly from your own phone, or watch the recording later.
