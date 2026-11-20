@@ -1,0 +1,44 @@
+/* Tiisha brand guide — generated from tokens.json */
+:root, [data-theme="light"] {
+  --bg: #f6f8fd;
+  --surface: #ffffff;
+  --surface-sunken: #e6eeff;
+  --ink: #0b1f44;
+  --ink-muted: #44546f;
+  --line: #d5ddee;
+  --line-strong: #6f82a8;
+  --brand: #1f5bd8;
+  --on-brand: #ffffff;
+  --brand-deep: #1747ad;
+  --navy: #0a2e6e;
+  --on-navy: #ffffff;
+  --sun: #ffc233;
+  --on-sun: #0b1f44;
+  --coral: #e8456b;
+  --coral-strong: #c41f4b;
+  --on-coral: #ffffff;
+  --leaf: #12a357;
+  --leaf-strong: #0b7a3b;
+  --on-leaf: #ffffff;
+  --violet-strong: #6137c2;
+  --on-violet: #ffffff;
+  --amber-strong: #8f5600;
+  --focus: #0b1f44;
+  --shadow-press: 0 4px 0 0 #0a2e6e;
+  --shadow-lift: 0 10px 28px 0 #0b1f442e;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+    }
