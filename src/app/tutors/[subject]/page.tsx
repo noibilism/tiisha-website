@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -61,6 +62,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
       </Section>
 
       <Section tone="surface" title="Who it suits">
+        <Split reverse art={<Art name="pip-read" />}>
         <ul className="checks" style={{ maxWidth: 760 }}>
           {s.suits.map((x) => (
             <li key={x} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontSize: 18 }}>
@@ -69,9 +71,11 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
             </li>
           ))}
         </ul>
+        </Split>
       </Section>
 
       <Section title={`How ${s.name} classes run on Tiisha`}>
+        <Split art={<Art name="scene-tablet-tutor" alt="A child learning on a tablet while the tutor teaches on screen" />}>
         <div className="prose">
           <ol>
             {SHARED_STEPS.map((x) => (
@@ -85,6 +89,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
             ))}
           </ul>
         </div>
+        </Split>
       </Section>
 
       <Section tone="surface" title={`${s.name} questions`}>

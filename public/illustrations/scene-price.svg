@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="300" height="220" role="img"><title>A price tag and coins showing a clear price</title>
+<ellipse cx="150" cy="204" rx="118" ry="10" fill="#e6eeff"/>
+<g transform="rotate(-10 130 100)">
+<path d="M50 40h110l44 60-44 60H50a14 14 0 0 1-14-14V54a14 14 0 0 1 14-14z" fill="#1f5bd8" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="68" cy="100" r="9" fill="#ffffff" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M92 82h70M92 100h50M92 118h62" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+</g>
+<g stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+<ellipse cx="236" cy="172" rx="34" ry="12" fill="#ffc233"/>
+<ellipse cx="236" cy="158" rx="34" ry="12" fill="#ffc233"/>
+<ellipse cx="236" cy="144" rx="34" ry="12" fill="#ffc233"/>
+</g>
+<path d="M214 144h44" stroke="#f0a800" stroke-width="4" stroke-linecap="round"/>
+<circle cx="262" cy="86" r="5" fill="#e8456b"/><circle cx="40" cy="170" r="4" fill="#12a357"/></svg>

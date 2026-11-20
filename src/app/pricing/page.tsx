@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -43,6 +44,7 @@ export default function Pricing() {
       </PageHero>
 
       <Section title="How pricing works">
+        <Split reverse art={<Art name="scene-price" />}>
         <ul className="facts">
           <li className="card">
             <h3>Set per tutor.</h3>
@@ -61,10 +63,14 @@ export default function Pricing() {
             <p>Cancel up to 24 hours before a class at no cost.</p>
           </li>
         </ul>
+        </Split>
       </Section>
 
       <Section tone="surface" title="Pricing questions">
-        <FaqList items={FAQ} />
+        <div className="faq-aside">
+          <FaqList items={FAQ} />
+          <Art name="pip-read" />
+        </div>
       </Section>
       <ClosingCta />
       <JsonLd

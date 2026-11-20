@@ -10,19 +10,25 @@ export function PageHero({
   title,
   lead,
   children,
+  art,
 }: {
   crumbs: Crumb[];
   title: string;
   lead?: string;
   children?: React.ReactNode;
+  /** Optional picture on the right of the hero. Hidden on small screens. */
+  art?: React.ReactNode;
 }) {
   return (
     <section className="page-hero on-dark">
-      <div className="wrap">
-        <Breadcrumbs items={crumbs} />
-        <h1>{title}</h1>
-        {lead && <p className="lead">{lead}</p>}
-        {children}
+      <div className={`wrap${art ? " hero-split" : ""}`}>
+        <div>
+          <Breadcrumbs items={crumbs} />
+          <h1>{title}</h1>
+          {lead && <p className="lead">{lead}</p>}
+          {children}
+        </div>
+        {art && <div className="hero-art">{art}</div>}
       </div>
       <JsonLd data={breadcrumbLd(crumbs)} />
     </section>

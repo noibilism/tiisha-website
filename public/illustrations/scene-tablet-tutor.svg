@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" width="360" height="260" role="img"><title>A child learning on a tablet while a tutor teaches on screen</title>
+<ellipse cx="180" cy="236" rx="150" ry="14" fill="#e6eeff"/>
+<rect x="60" y="30" width="240" height="160" rx="18" fill="#0a2e6e" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="72" y="42" width="216" height="136" rx="10" fill="#ffffff"/>
+<rect x="82" y="52" width="86" height="116" rx="10" fill="#e6eeff"/>
+<circle cx="125" cy="92" r="17" fill="#ffc233" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+<path d="M113 90q12-12 24 0" fill="none" stroke="#0b1f44" stroke-width="3" stroke-linecap="round"/>
+<circle cx="119" cy="95" r="2" fill="#0b1f44"/><circle cx="131" cy="95" r="2" fill="#0b1f44"/>
+<path d="M120 102q5 4 10 0" fill="none" stroke="#0b1f44" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M94 156q4-34 31-34t31 34z" fill="#1f5bd8" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+<path d="M104 80q-6-26 21-26t21 26" fill="none" stroke="#e8456b" stroke-width="5" stroke-linecap="round"/>
+<rect x="176" y="52" width="104" height="116" rx="10" fill="#f6f8fd" stroke="#d5ddee" stroke-width="3"/>
+<circle cx="208" cy="92" r="20" fill="#ffffff" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+<path d="M208 92v-20a20 20 0 0 1 20 20z" fill="#ffc233" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+<path d="M240 82h28M240 96h20M240 110h28" stroke="#1f5bd8" stroke-width="5" stroke-linecap="round"/>
+<path d="M190 138h76M190 152h50" stroke="#d5ddee" stroke-width="5" stroke-linecap="round"/>
+<path d="M150 190l-14 38h88l-14-38" fill="#c9d6f2" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<rect x="128" y="226" width="104" height="8" rx="4" fill="#0a2e6e" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+<g>
+<circle cx="318" cy="150" r="22" fill="#8a5a3c" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M300 140a18 18 0 0 1 36 0q-18-12-36 0z" fill="#0b1f44"/>
+<circle cx="326" cy="124" r="8" fill="#0b1f44"/>
+<path d="M296 226q-4-48 22-48t22 48z" fill="#e8456b" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M300 200l-28-6" fill="none" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/><circle cx="270" cy="194" r="7" fill="#8a5a3c" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+</g>
+<circle cx="300" cy="40" r="6" fill="#ffc233"/><circle cx="322" cy="62" r="4" fill="#e8456b"/></svg>

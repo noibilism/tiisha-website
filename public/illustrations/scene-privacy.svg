@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 220" width="260" height="220" role="img"><title>A padlock protecting a child profile</title>
+<ellipse cx="130" cy="204" rx="100" ry="10" fill="#ffffff" opacity=".45"/>
+<rect x="30" y="34" width="132" height="140" rx="16" fill="#ffffff" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="96" cy="84" r="22" fill="#e6eeff" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M58 150q4-40 38-40t38 40z" fill="#e6eeff" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M54 52h40" stroke="#d5ddee" stroke-width="6" stroke-linecap="round"/>
+<path d="M170 110v-14a30 30 0 0 1 60 0v14" fill="none" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="9"/>
+<rect x="156" y="108" width="88" height="76" rx="16" fill="#1f5bd8" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="200" cy="140" r="10" fill="#ffc233" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+<path d="M200 148v14" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" fill="none"/></svg>

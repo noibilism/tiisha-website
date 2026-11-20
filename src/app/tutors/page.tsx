@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
@@ -35,6 +36,15 @@ export default function Tutors() {
               </Link>
             </li>
           ))}
+          <li className="span2">
+            <div className="pip-card">
+              <Art name="pip-point" />
+              <div>
+                <span className="h">Not sure where to start?</span>
+                <span className="d">Pick the subject your child finds hardest. A good first class starts there.</span>
+              </div>
+            </div>
+          </li>
         </ul>
       </Section>
       <ClosingCta />

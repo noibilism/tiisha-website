@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Art, Split } from "@/components/Art";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import {
@@ -37,10 +38,13 @@ export default function Home() {
       <section id="faq" className="section bg">
         <div className="wrap">
           <h2 className="title">Questions parents ask</h2>
-          <FaqList items={faqs} />
+          <div className="faq-aside">
+            <FaqList items={faqs} />
+            <Art name="pip-think" />
+          </div>
         </div>
       </section>
-      <ClosingCta />
+      <ClosingCta mascot />
       <JsonLd
         data={[
           serviceLd({

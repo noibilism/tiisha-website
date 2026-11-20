@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -47,6 +48,7 @@ export default function Teach() {
         crumbs={crumbs}
         title={title}
         lead="Set your own price and hours. Teach live from your phone or laptop. Families around the world are looking for tutors like you. You are paid in your own currency."
+        art={<Art name="pip-laptop" eager />}
       >
         <div className="btn-row">
           <Link href={links.apply} className="btn btn-sun">
@@ -66,6 +68,9 @@ export default function Teach() {
               <p>{p}</p>
             </li>
           ))}
+          <li className="facts-art" aria-hidden="true">
+            <Art name="scene-calendar" />
+          </li>
         </ul>
       </Section>
 

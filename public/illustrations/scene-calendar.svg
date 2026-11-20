@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" width="300" height="240" role="img"><title>A calendar with a class booked</title>
+<ellipse cx="150" cy="222" rx="118" ry="11" fill="#e6eeff"/>
+<rect x="30" y="28" width="220" height="180" rx="18" fill="#ffffff" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 46a18 18 0 0 1 18-18h184a18 18 0 0 1 18 18v28H30z" fill="#1f5bd8" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78 16v26M202 16v26" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="7" fill="none"/>
+<circle cx="56" cy="98" r="6" fill="#d5ddee"/><circle cx="100" cy="98" r="6" fill="#d5ddee"/><circle cx="144" cy="98" r="6" fill="#d5ddee"/><circle cx="188" cy="98" r="6" fill="#1f5bd8"/><circle cx="232" cy="98" r="6" fill="#d5ddee"/><circle cx="56" cy="134" r="6" fill="#d5ddee"/><circle cx="100" cy="134" r="6" fill="#d5ddee"/><circle cx="144" cy="134" r="16" fill="#ffc233" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/><path d="M137 134l5 5 10-11" fill="none" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="188" cy="134" r="6" fill="#d5ddee"/><circle cx="232" cy="134" r="6" fill="#d5ddee"/><circle cx="56" cy="170" r="6" fill="#d5ddee"/><circle cx="100" cy="170" r="6" fill="#1f5bd8"/><circle cx="144" cy="170" r="6" fill="#d5ddee"/><circle cx="188" cy="170" r="6" fill="#d5ddee"/><circle cx="232" cy="170" r="6" fill="#d5ddee"/>
+<circle cx="250" cy="176" r="38" fill="#ffffff" stroke="#0b1f44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="250" cy="176" r="28" fill="#e6eeff"/>
+<path d="M250 158v18l13 8" fill="none" stroke="#0b1f44" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"/>
+<circle cx="266" cy="30" r="5" fill="#e8456b"/></svg>

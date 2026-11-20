@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section } from "@/components/PageShell";
+import { Art, Split } from "@/components/Art";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
@@ -28,7 +29,12 @@ export default function HowItWorks() {
   const faqs = coreFaq().slice(0, 8);
   return (
     <>
-      <PageHero crumbs={crumbs} title="From first search to first class in a day." lead="Four steps, from telling us about your child to seeing what changed.">
+      <PageHero
+        crumbs={crumbs}
+        title="From first search to first class in a day."
+        lead="Four steps, from telling us about your child to seeing what changed."
+        art={<Art name="pip-wave" eager />}
+      >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
             Find a tutor
@@ -51,6 +57,7 @@ export default function HowItWorks() {
       </Section>
 
       <Section tone="surface" title="Inside a class">
+        <Split art={<Art name="scene-tablet-tutor" alt="A child learning on a tablet while the tutor teaches on screen" />}>
         <div className="prose">
           <p>
             Your child joins from a phone, tablet or laptop. The tutor teaches on a shared whiteboard, so your child sees
@@ -66,9 +73,11 @@ export default function HowItWorks() {
             Times show in your time zone. If your tutor is in another part of the world, they see their own. A parent in one city can book a tutor in another, and classes are live video, so distance does not matter.
           </p>
         </div>
+        </Split>
       </Section>
 
       <Section title="After class: know what changed">
+        <Split reverse art={<Art name="scene-report" alt="A progress report with bars going up and a star" />}>
         <div className="prose">
           <h3>Feedback after each class</h3>
           <p>After each class the tutor writes down what went well and what to practise.</p>
@@ -82,9 +91,11 @@ export default function HowItWorks() {
             child can do now, not just what they covered.
           </p>
         </div>
+        </Split>
       </Section>
 
       <Section tone="surface" title="Your child joins from your account">
+        <Split art={<Art name="scene-privacy" />}>
         <div className="prose">
           <p>
             Children do not need an email address. We keep only what tutoring needs, and we ask for your phone number so we
@@ -95,12 +106,13 @@ export default function HowItWorks() {
             <Link href="/tutor-checks">Read how tutor checks work</Link>.
           </p>
         </div>
+        </Split>
       </Section>
 
       <Section title="Questions parents ask">
         <FaqList items={faqs} />
       </Section>
-      <ClosingCta />
+      <ClosingCta mascot />
       <JsonLd
         data={[
           serviceLd({ name: "Tiisha online tutoring", description, path: "/how-it-works" }),

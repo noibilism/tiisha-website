@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { links } from "@/lib/config";
 import { SUBJECTS } from "@/content/subjects";
+import { Art } from "./Art";
 import { Check, Chart, Lock, ShieldCheck, Video } from "./Icons";
 
 export const CHECK_LINES = [
@@ -146,6 +147,7 @@ export function ClassAndProgress() {
     <section className="section bg">
       <div className="wrap cards2">
         <div className="card">
+          <Art name="scene-tablet-tutor" alt="A child learning on a tablet while the tutor teaches on screen" className="card-art" />
           <Video color="var(--brand)" />
           <h3>Every class is recorded. You can sit in on any of them.</h3>
           <p>
@@ -154,6 +156,7 @@ export function ClassAndProgress() {
           </p>
         </div>
         <div className="card">
+          <Art name="scene-report" alt="A progress report with bars going up and a star" className="card-art" />
           <Chart size={32} color="var(--brand)" />
           <h3>Know what your child can do now, not just what they covered.</h3>
           <p>
@@ -182,6 +185,7 @@ export function PricingSection() {
               More about pricing
             </Link>
           </p>
+          <Art name="scene-price" className="side-art" />
         </div>
         <ul className="facts">
           <li className="card">
@@ -211,6 +215,7 @@ export function Safety() {
               we can reach you if a class changes at short notice.
             </p>
           </div>
+          <Art name="scene-privacy" className="band-art" />
         </div>
       </div>
     </section>
@@ -235,9 +240,10 @@ export function SubjectLinks() {
   );
 }
 
-export function ClosingCta() {
+export function ClosingCta({ mascot = false }: { mascot?: boolean }) {
   return (
     <section className="cta on-dark">
+      {mascot && <Art name="pip-celebrate" className="cta-pip" />}
       <h2>Your child&apos;s next good class is a day away.</h2>
       <div className="btn-row">
         <Link href={links.signup} className="btn btn-sun">

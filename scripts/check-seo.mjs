@@ -76,7 +76,15 @@ for (const file of pages) {
   if (/[—–]/.test(text) || /[—–]/.test(desc || "")) fail(page, "contains an em or en dash");
   if (/\[[^\]]{3,}\]/.test(visible)) fail(page, "contains a bracketed placeholder");
 
-  for (const img of root.querySelectorAll("img")) if (!img.hasAttribute("alt")) fail(page, "img without alt");
+  for (const img of root.querySelectorAll("img")) {
+    if (!img.hasAttribute("alt")) fail(page, "img without alt");
+    const src = img.getAttribute("src") || "";
+    if (src.startsWith("/illustrations/")) {
+      if (!img.getAttribute("width") || !img.getAttribute("height")) fail(page, `${src} has no width and height`);
+      if (!existsSync(join("public", src))) fail(page, `${src} does not exist`);
+      if (!img.getAttribute("alt") && img.getAttribute("aria-hidden") !== "true") fail(page, `${src} is decorative but not aria-hidden`);
+    }
+  }
   for (const a of root.querySelectorAll("a")) {
     const label = normalise(a.text) || a.getAttribute("aria-label");
     if (!label) fail(page, `link without text: ${a.getAttribute("href")}`);
@@ -129,6 +137,15 @@ if (existsSync(sitemapPath)) {
   }
 } else fail("sitemap", "sitemap.xml was not generated");
 if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was not generated");
+
+// Illustration files stay small.
+if (existsSync("public/illustrations")) {
+  for (const f of readdirSync("public/illustrations")) {
+    const size = statSync(join("public/illustrations", f)).size;
+    if (size > 15 * 1024) fail("illustrations", `${f} is ${size} bytes, over the 15 KB limit`);
+    if (/[—–]/.test(readFileSync(join("public/illustrations", f), "utf8"))) fail("illustrations", `${f} contains an em or en dash`);
+  }
+}
 
 console.log(`Checked ${pages.length} pages.`);
 for (const w of warnings) console.warn(`warn  ${w}`);

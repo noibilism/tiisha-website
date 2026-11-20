@@ -1,4 +1,4 @@
-// Runs Lighthouse (mobile, default throttling) against the standalone build for / and /uk and prints scores.
+// Runs Lighthouse (mobile, default throttling) against the standalone build for / and /faq and prints scores.
 // Needs Chrome. Set CHROME_PATH if it is not found. Usage: npm run build && npm run lighthouse
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -6,7 +6,7 @@ import lighthouse from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
 
 const PORT = process.env.LH_PORT || "3200";
-const paths = (process.env.LH_PATHS || "/,/uk").split(",");
+const paths = (process.env.LH_PATHS || "/,/faq").split(",");
 
 const server = spawn("node", [".next/standalone/server.js"], { env: { ...process.env, PORT, HOSTNAME: "127.0.0.1" }, stdio: "ignore" });
 const stop = () => server.kill();

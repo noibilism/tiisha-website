@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta, CHECK_LINES } from "@/components/sections";
@@ -61,17 +62,20 @@ export default function TutorChecks() {
       </section>
 
       <Section title="What each check involves">
-        <div className="prose">
-          {DETAIL.map(([h, p]) => (
-            <div key={h}>
-              <h3>{h}</h3>
-              <p>{p}</p>
-            </div>
-          ))}
-        </div>
+        <Split sticky art={<Art name="scene-tutor-checks" alt="A checklist with a shield showing a tutor has passed every check" />}>
+          <div className="prose">
+            {DETAIL.map(([h, p]) => (
+              <div key={h}>
+                <h3>{h}</h3>
+                <p>{p}</p>
+              </div>
+            ))}
+          </div>
+        </Split>
       </Section>
 
       <Section tone="surface" title="After approval, you can still see every class">
+        <Split reverse art={<Art name="pip-point" />}>
         <div className="prose">
           <p>
             Every class is recorded. You can join a live class quietly from your own phone, or watch the recording later.
@@ -85,6 +89,7 @@ export default function TutorChecks() {
             Tutors can see how the process works from their side on <Link href="/teach">the tutor page</Link>.
           </p>
         </div>
+        </Split>
       </Section>
       <ClosingCta />
       <JsonLd data={webPageLd({ name: "Tutor checks", description, path: "/tutor-checks" })} />
