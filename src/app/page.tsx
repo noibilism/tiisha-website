@@ -8,13 +8,15 @@ import {
   ExamsStrip,
   Hero,
   HowItWorks,
+  PlatformStrip,
+  PlatformsSection,
   PricingSection,
   Safety,
   SubjectLinks,
   TutorChecks,
 } from "@/components/sections";
 import { coreFaq } from "@/content/faq";
-import { DEFAULT_DESCRIPTION, faqLd, pageMetadata, serviceLd } from "@/lib/seo";
+import { DEFAULT_DESCRIPTION, faqLd, pageMetadata, serviceLd, softwareApplicationLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Tiisha: a tutor your child will actually learn from",
@@ -28,12 +30,14 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <PlatformStrip />
       <ExamsStrip />
       <HowItWorks />
       <TutorChecks />
       <ClassAndProgress />
       <PricingSection />
       <Safety />
+      <PlatformsSection />
       <SubjectLinks />
       <section id="faq" className="section bg">
         <div className="wrap">
@@ -52,6 +56,7 @@ export default function Home() {
             description: "Live one-to-one online classes with verified tutors. Parents book and pay online, every class is recorded, and a progress report comes every month.",
             path: "/",
           }),
+          softwareApplicationLd(),
           faqLd(faqs),
         ]}
       />

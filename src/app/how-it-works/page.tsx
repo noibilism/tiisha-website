@@ -5,12 +5,13 @@ import { Art, Split } from "@/components/Art";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
+import { StoreButtons } from "@/components/Platforms";
 import { coreFaq } from "@/content/faq";
 import { links } from "@/lib/config";
 import { faqLd, pageMetadata, serviceLd } from "@/lib/seo";
 
 const description =
-  "From first search to first class in a day. Tell us about your child, choose a verified tutor, learn live and recorded, and see progress in a monthly report.";
+  "From first search to first class in a day, on web, iOS or Android. Choose a verified tutor, learn live, and see progress in a monthly report.";
 
 export const metadata: Metadata = pageMetadata({ title: "How Tiisha online tutoring works", description, path: "/how-it-works" });
 
@@ -56,7 +57,20 @@ export default function HowItWorks() {
         </ol>
       </Section>
 
-      <Section tone="surface" title="Inside a class">
+      <Section tone="surface" title="Use it on the device you have">
+        <Split reverse art={<Art name="scene-devices" alt="A laptop and a phone showing the same live class" />}>
+          <div className="prose">
+            <p>
+              Tiisha works on the web, on iPhone and iPad, and on Android. Parents, students and tutors use the same
+              account everywhere, so you can book on a laptop and join from a phone.
+            </p>
+            <p>You do not have to install anything to join a class. The apps are there if you want one-tap joining and reminders.</p>
+            <StoreButtons />
+          </div>
+        </Split>
+      </Section>
+
+      <Section title="Inside a class">
         <Split art={<Art name="scene-tablet-tutor" alt="A child learning on a tablet while the tutor teaches on screen" />}>
         <div className="prose">
           <p>
@@ -76,7 +90,7 @@ export default function HowItWorks() {
         </Split>
       </Section>
 
-      <Section title="After class: know what changed">
+      <Section tone="surface" title="After class: know what changed">
         <Split reverse art={<Art name="scene-report" alt="A progress report with bars going up and a star" />}>
         <div className="prose">
           <h3>Feedback after each class</h3>
@@ -94,7 +108,7 @@ export default function HowItWorks() {
         </Split>
       </Section>
 
-      <Section tone="surface" title="Your child joins from your account">
+      <Section title="Your child joins from your account">
         <Split art={<Art name="scene-privacy" />}>
         <div className="prose">
           <p>
@@ -109,7 +123,7 @@ export default function HowItWorks() {
         </Split>
       </Section>
 
-      <Section title="Questions parents ask">
+      <Section tone="surface" title="Questions parents ask">
         <FaqList items={faqs} />
       </Section>
       <ClosingCta mascot />

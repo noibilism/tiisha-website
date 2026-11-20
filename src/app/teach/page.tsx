@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
+import { StoreButtons } from "@/components/Platforms";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { TUTOR_FAQ, TUTOR_FEE_FAQ } from "@/content/faq";
@@ -74,7 +75,21 @@ export default function Teach() {
         </ul>
       </Section>
 
-      <Section id="approval" tone="surface" title="How approval works">
+      <Section tone="surface" title="Teach from a phone or a laptop">
+        <Split reverse art={<Art name="scene-devices" alt="A laptop and a phone showing the same live class" />}>
+          <div className="prose">
+            <p>
+              Many tutors do not have a laptop, which is why Tiisha has a tutor app. It runs your whole day from a phone:
+              your hours, your classes, feedback and earnings. If you prefer a laptop, the web app does the same. It is
+              one account, on both.
+            </p>
+            <p>A tablet or laptop gives you a bigger whiteboard to write on.</p>
+            <StoreButtons />
+          </div>
+        </Split>
+      </Section>
+
+      <Section id="approval" title="How approval works">
         <p className="lead">Strict on purpose. Parents book verified tutors, and that is how you win bookings.</p>
         <ol className="steps three">
           {APPROVAL.map(([h, p], i) => (
@@ -94,7 +109,7 @@ export default function Teach() {
         </p>
       </Section>
 
-      <Section title="Tutor questions">
+      <Section tone="surface" title="Tutor questions">
         <FaqList items={TUTOR_PAGE_FAQ} />
       </Section>
 

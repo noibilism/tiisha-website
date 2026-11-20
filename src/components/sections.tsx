@@ -65,6 +65,8 @@ export function Hero() {
   );
 }
 
+export { PlatformStrip, PlatformsSection } from "./Platforms";
+
 export function ExamsStrip({ text = STRIP_TEXT }: { text?: string }) {
   return (
     <section className="strip" aria-label="Curricula and exams">

@@ -269,6 +269,41 @@ ${Array.from({ length: 15 }, (_, n) => {
 <path d="M214 144h44" stroke="${C.sunDeep}" stroke-width="4" stroke-linecap="round"/>
 <circle cx="262" cy="86" r="5" fill="${C.coral}"/><circle cx="40" cy="170" r="4" fill="${C.leaf}"/>`,
   },
+  "scene-devices": {
+    w: 460,
+    h: 300,
+    title: "A laptop and a phone both showing the same live class",
+    body: `
+<ellipse cx="225" cy="280" rx="190" ry="13" fill="${C.sunken}"/>
+<rect x="34" y="24" width="316" height="204" rx="18" fill="${C.navy}" ${S}/>
+<rect x="46" y="36" width="292" height="176" rx="10" fill="${C.white}"/>
+<rect x="56" y="46" width="130" height="118" rx="10" fill="${C.sunken}"/>
+<circle cx="121" cy="92" r="20" fill="${C.sun}" ${S} stroke-width="3"/>
+<circle cx="113" cy="96" r="2.2" fill="${C.ink}"/><circle cx="129" cy="96" r="2.2" fill="${C.ink}"/>
+<path d="M114 104q7 6 14 0" fill="none" stroke="${C.ink}" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M99 90q4-26 22-26t22 26" fill="none" stroke="${C.coral}" stroke-width="6" stroke-linecap="round"/>
+<path d="M82 162q6-36 39-36t39 36z" fill="${C.brand}" ${S} stroke-width="3"/>
+<rect x="196" y="46" width="132" height="118" rx="10" fill="#f6f8fd" stroke="${C.line}" stroke-width="3"/>
+<circle cx="228" cy="86" r="20" fill="${C.white}" ${S} stroke-width="3"/>
+<path d="M228 86v-20a20 20 0 0 1 20 20z" fill="${C.sun}" ${S} stroke-width="3"/>
+<path d="M262 76h50M262 92h36M262 108h50" stroke="${C.brand}" stroke-width="6" stroke-linecap="round"/>
+<path d="M210 136h104M210 150h70" stroke="${C.line}" stroke-width="6" stroke-linecap="round"/>
+<circle cx="146" cy="190" r="8" fill="${C.coral}"/><circle cx="176" cy="190" r="8" fill="${C.leaf}"/><rect x="196" y="182" width="52" height="16" rx="8" fill="${C.line}"/>
+<path d="M14 244h356l-14 26H28z" fill="${C.metal}" ${S} stroke-width="3.5"/>
+<rect x="300" y="86" width="132" height="190" rx="24" fill="${C.ink}" ${S}/>
+<rect x="310" y="104" width="112" height="156" rx="10" fill="${C.white}"/>
+<rect x="364" y="92" width="24" height="6" rx="3" fill="${C.navy}"/>
+<rect x="316" y="110" width="100" height="62" rx="9" fill="${C.sunken}"/>
+<circle cx="366" cy="134" r="12" fill="${C.sun}" ${S} stroke-width="2.5"/>
+<path d="M346 168q6-22 20-22t20 22z" fill="${C.brand}" ${S} stroke-width="2.5"/>
+<rect x="316" y="180" width="100" height="56" rx="9" fill="#f6f8fd" stroke="${C.line}" stroke-width="2.5"/>
+<circle cx="338" cy="206" r="11" fill="${C.white}" ${S} stroke-width="2.5"/>
+<path d="M338 206v-11a11 11 0 0 1 11 11z" fill="${C.sun}" ${S} stroke-width="2.5"/>
+<path d="M360 200h42M360 212h30" stroke="${C.brand}" stroke-width="5" stroke-linecap="round"/>
+<circle cx="338" cy="248" r="5" fill="${C.coral}"/><circle cx="356" cy="248" r="5" fill="${C.leaf}"/><rect x="372" y="244" width="34" height="8" rx="4" fill="${C.line}"/>
+<path d="M428 52l5 11 11 5-11 5-5 11-5-11-11-5 11-5z" fill="${C.sun}" ${S} stroke-width="3"/>
+<circle cx="24" cy="70" r="5" fill="${C.coral}"/><circle cx="446" cy="150" r="4" fill="${C.violet}"/>`,
+  },
   "scene-privacy": {
     w: 260,
     h: 220,

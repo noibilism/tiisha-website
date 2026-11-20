@@ -138,6 +138,48 @@ if (existsSync(sitemapPath)) {
 } else fail("sitemap", "sitemap.xml was not generated");
 if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was not generated");
 
+// Platforms: web, iOS and Android are stated, and store buttons never lead nowhere.
+{
+  const html = (f) => parse(readFileSync(join(ROOT, f), "utf8"));
+  const home = html("index.html");
+  const text = (home.querySelector("main")?.text || "").replace(/\s+/g, " ");
+  if (!/Learn on the web, iPhone, iPad and Android/.test(text)) fail("/", "platforms strip text is missing");
+  if (!home.querySelector("section#get-the-app")) fail("/", "missing #get-the-app section");
+  if (!home.querySelector("section.platform-strip")) fail("/", "missing platforms strip under the hero");
+  const apps = home
+    .querySelectorAll('script[type="application/ld+json"]')
+    .map((x) => JSON.parse(x.text))
+    .filter((b) => b["@type"] === "SoftwareApplication");
+  if (apps.length !== 1) fail("/", `expected one SoftwareApplication JSON-LD, found ${apps.length}`);
+  else {
+    const os = String(apps[0].operatingSystem || "");
+    for (const p of ["Web", "iOS", "Android"]) if (!os.includes(p)) fail("/", `SoftwareApplication operatingSystem lacks ${p}`);
+    if (!apps[0].applicationCategory) fail("/", "SoftwareApplication lacks applicationCategory");
+  }
+  if (!home.querySelector('footer a[href="/#get-the-app"]')) fail("/", "footer lacks a Get the app link");
+  for (const f of ["index.html", "how-it-works.html", "teach.html"]) {
+    const root = html(f);
+    if (!root.querySelector("[data-store]")) fail(f, "store buttons block is missing");
+    const stores = root.querySelectorAll(".btn-store");
+    if (stores.length !== 2) fail(f, `expected 2 store buttons, found ${stores.length}`);
+    for (const b of stores) {
+      const label = b.text.replace(/\s+/g, " ");
+      if (!/Download on the App Store|Get it on Google Play/.test(label)) fail(f, `unexpected store button text: ${label}`);
+      if (b.tagName === "A") {
+        if (!/^https:\/\//.test(b.getAttribute("href") || "")) fail(f, `store link is not an https URL: ${b.getAttribute("href")}`);
+      } else if (b.tagName === "BUTTON") {
+        if (!b.hasAttribute("disabled") || !/Coming soon/.test(b.text)) fail(f, "store button without a link must be a disabled Coming soon button");
+      } else fail(f, `store button is a ${b.tagName}`);
+    }
+    for (const img of root.querySelectorAll('img[src*="apple"], img[src*="google-play"], img[src*="app-store"]')) fail(f, `uses store badge artwork: ${img.getAttribute("src")}`);
+  }
+  const faqHtml = html("faq.html");
+  for (const id of ["q-which-devices-can-we-use", "q-do-we-need-to-install-anything", "q-can-my-child-join-a-class-from-a-phone", "q-does-it-work-on-a-tablet"])
+    if (!faqHtml.querySelector(`details#${id}`)) fail("/faq", `missing device question #${id}`);
+  const teach = html("teach.html").querySelector("main")?.text.replace(/\s+/g, " ") || "";
+  if (!/phone or a laptop/.test(teach) || !/tutor app/.test(teach)) fail("/teach", "tutor app and phone or laptop copy is missing");
+}
+
 // The /faq help centre: grouped, searchable, and in sync with its JSON-LD.
 {
   const file = join(ROOT, "faq.html");

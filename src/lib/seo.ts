@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "./config";
+import { APP_STORE_URL, APP_URL, PLAY_STORE_URL, SITE_NAME, SITE_URL } from "./config";
 import type { Faq } from "@/content/faq";
 
 export const DEFAULT_DESCRIPTION =
-  "Live one-to-one online classes with verified tutors from around the world. Every class recorded, with feedback, assessments and a progress report every month.";
+  "Live one-to-one online classes with verified tutors, on web, iOS and Android. Every class recorded, with feedback, assessments and a monthly progress report.";
 
 export function abs(path: string) {
   return `${SITE_URL}${path === "/" ? "" : path}` || SITE_URL;
@@ -103,6 +103,24 @@ export function serviceLd(o: {
     serviceType: o.serviceType || "Online tutoring",
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: "Worldwide",
+  };
+}
+
+/** The Tiisha app itself: one product on the web, iOS and Android. Store links are included only once they exist. */
+export function softwareApplicationLd() {
+  const downloads = [APP_STORE_URL, PLAY_STORE_URL].filter(Boolean);
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Tiisha",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web, iOS, Android",
+    url: APP_URL,
+    description:
+      "Book live one-to-one classes with verified tutors, join them from the web or a phone, and see progress. Parents, students and tutors use the same account on web and mobile.",
+    inLanguage: "en",
+    provider: { "@id": `${SITE_URL}/#organization` },
+    ...(downloads.length ? { installUrl: downloads.length === 1 ? downloads[0] : downloads } : {}),
   };
 }
 

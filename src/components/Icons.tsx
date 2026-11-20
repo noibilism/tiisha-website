@@ -45,3 +45,10 @@ export const Chevron = ({ size = 22, color = "currentColor", sw = 2.6 }: P) => (
     <path d="M5 9l7 7 7-7" />
   </svg>
 );
+export const Devices = ({ size = 28, color = "currentColor", sw = 2.4 }: P) => (
+  <svg {...base(size, color, sw)}>
+    <rect x="2.5" y="5" width="14" height="10" rx="2" />
+    <path d="M1 19h17" />
+    <rect x="16" y="9" width="6" height="11" rx="1.6" />
+  </svg>
+);

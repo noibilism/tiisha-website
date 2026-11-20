@@ -19,6 +19,7 @@ const ART = {
   "scene-report": [300, 250],
   "scene-price": [300, 220],
   "scene-privacy": [260, 220],
+  "scene-devices": [460, 300],
 } as const;
 
 export type ArtName = keyof typeof ART;

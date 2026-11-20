@@ -327,12 +327,20 @@ export const FAQ_GROUPS: FaqGroup[] = [
       {
         items: [
           {
-            q: "What do we need for a class?",
-            a: "A phone, tablet or laptop with a camera and microphone, and an internet connection. Your child joins from the lesson link or the app.",
+            q: "Which devices can we use?",
+            a: "Phones, tablets and laptops. Tiisha works in a web browser and in the iPhone, iPad and Android apps, with one account across all of them.",
           },
           {
-            q: "Do we need a laptop?",
-            a: "No. A phone works. A laptop or tablet gives a bigger whiteboard.",
+            q: "Do we need to install anything?",
+            a: "No. You can join a class from the lesson link in a web browser. The apps are optional and add one-tap joining and reminders.",
+          },
+          {
+            q: "Can my child join a class from a phone?",
+            a: "Yes. A phone shows the video, the chat and the whiteboard. For writing and drawing, a tablet or laptop is better.",
+          },
+          {
+            q: "Does it work on a tablet?",
+            a: "Yes, in the browser or in the app. A tablet is a good choice because the bigger screen gives a bigger whiteboard to write on. You also need a camera, a microphone and an internet connection.",
           },
           {
             q: "How does a live class run?",

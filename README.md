@@ -22,6 +22,8 @@ npm run typecheck
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | `https://app.tiisha.com` | The product app. "Find a tutor" goes to `/signup`, "Sign in" to `/signin`, "Apply to teach" to `/tutor/apply`. |
 | `NEXT_PUBLIC_SITE_URL` | `https://tiisha.com` | Public origin of this site. Used for canonicals, sitemap, robots and Open Graph. Set it to the real domain. |
+| `NEXT_PUBLIC_APP_STORE_URL` | unset | App Store listing (https). Unset shows a disabled "Coming soon" button, never a dead link. |
+| `NEXT_PUBLIC_PLAY_STORE_URL` | unset | Google Play listing (https). Same behaviour as above. |
 | `NEXT_PUBLIC_ANALYTICS_ID` | unset | Unset means no analytics script. `G-XXXX` loads GA4. Any other value is used as a Plausible domain. |
 
 ## Routes

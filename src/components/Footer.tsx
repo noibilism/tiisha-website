@@ -15,6 +15,7 @@ export function Footer() {
           <Link href="/pricing">Pricing</Link>
           <Link href="/tutors">Subjects</Link>
           <Link href="/teach">Become a tutor</Link>
+          <Link href="/#get-the-app">Get the app</Link>
           <Link href="/faq">Help</Link>
           <Link href="/terms">Terms</Link>
           <Link href="/privacy">Privacy</Link>
@@ -22,7 +23,7 @@ export function Footer() {
         </nav>
       </div>
       <p className="tag-line">Tiisha. Tutors you can trust, wherever they are.</p>
-      <p className="small">Tiisha serves families and tutors around the world.</p>
+      <p className="small">Tiisha serves families and tutors around the world. Available on the web, iOS and Android. App Store is a service mark of Apple Inc. Google Play is a trademark of Google LLC.</p>
     </footer>
   );
 }

@@ -3,7 +3,7 @@
 ## Railway
 
 1. Create a service from this repo. Railway picks up `railway.json` and builds the `Dockerfile`.
-2. Set variables on the service: `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_SITE_URL`, optionally `NEXT_PUBLIC_ANALYTICS_ID`. They are used at build time, so changing one needs a redeploy.
+2. Set variables on the service: `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_SITE_URL`, optionally `NEXT_PUBLIC_ANALYTICS_ID`, `NEXT_PUBLIC_APP_STORE_URL` and `NEXT_PUBLIC_PLAY_STORE_URL` (leave the store ones empty until the apps are live). They are used at build time, so changing one needs a redeploy.
 3. Railway sets `$PORT`. The container listens on it. The health check is `GET /`.
 4. Add the custom domain, then set `NEXT_PUBLIC_SITE_URL` to it and redeploy so canonicals and the sitemap use the right origin.
 
