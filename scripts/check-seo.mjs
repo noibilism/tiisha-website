@@ -138,6 +138,61 @@ if (existsSync(sitemapPath)) {
 } else fail("sitemap", "sitemap.xml was not generated");
 if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was not generated");
 
+// The /faq help centre: grouped, searchable, and in sync with its JSON-LD.
+{
+  const file = join(ROOT, "faq.html");
+  if (!existsSync(file)) fail("/faq", "faq.html was not built");
+  else {
+    const html = readFileSync(file, "utf8");
+    const root = parse(html);
+    const GROUPS = ["getting-started", "parents", "tutors", "classes-and-technology", "safety-and-trust", "account-and-support"];
+    for (const id of GROUPS) {
+      const sec = root.querySelector(`section#${id}`);
+      if (!sec) fail("/faq", `missing group section #${id}`);
+      else if (!sec.querySelector("h2")) fail("/faq", `group #${id} has no h2`);
+      else if (sec.querySelectorAll("details").length === 0) fail("/faq", `group #${id} has no questions`);
+    }
+    const toc = root.querySelectorAll("nav.faq-toc a").map((a) => a.getAttribute("href"));
+    for (const id of GROUPS) if (!toc.includes(`#${id}`)) fail("/faq", `table of contents lacks #${id}`);
+    for (const h of toc) if (!root.querySelector(`[id="${(h || "").slice(1)}"]`)) fail("/faq", `table of contents link ${h} has no target`);
+
+    const items = root.querySelectorAll("#faq-groups details");
+    if (items.length < 40 || items.length > 60) fail("/faq", `expected 40 to 60 questions, found ${items.length}`);
+    const ids = new Set();
+    const visible = new Map();
+    for (const d of items) {
+      const id = d.getAttribute("id");
+      if (!id || ids.has(id)) fail("/faq", `question anchor missing or duplicated: ${id}`);
+      ids.add(id);
+      const q = normalise(d.querySelector("summary")?.text || "");
+      const a = normalise(d.querySelector("p")?.text || "");
+      if (!q || !a) fail("/faq", `empty question or answer: ${id}`);
+      if (visible.has(q)) fail("/faq", `duplicate question: ${q}`);
+      visible.set(q, a);
+    }
+    if (root.querySelectorAll("h1").length !== 1) fail("/faq", "expected one h1");
+
+    // JSON-LD must list exactly the visible questions, with the visible answers.
+    const ldBlocks = root.querySelectorAll('script[type="application/ld+json"]').map((s) => JSON.parse(s.text));
+    const faqPages = ldBlocks.filter((b) => b["@type"] === "FAQPage");
+    if (faqPages.length !== 1) fail("/faq", `expected one FAQPage JSON-LD, found ${faqPages.length}`);
+    else {
+      const ld = faqPages[0].mainEntity;
+      if (ld.length !== visible.size) fail("/faq", `JSON-LD has ${ld.length} questions, page shows ${visible.size}`);
+      for (const e of ld) {
+        const a = visible.get(normalise(e.name));
+        if (a === undefined) fail("/faq", `JSON-LD question not on the page: ${e.name}`);
+        else if (normalise(e.acceptedAnswer.text) !== a) fail("/faq", `JSON-LD answer differs from the page: ${e.name}`);
+      }
+    }
+    // Parents never see the service fee.
+    const body = normalise(root.querySelector("main")?.text || "");
+    if (/\b15\s?%|service fee|commission|platform fee/i.test(body)) fail("/faq", "mentions the service fee");
+    // The search box is added by script, so the server HTML must not ship a dead input.
+    if (root.querySelector("#faq-q")) fail("/faq", "search input is in the server HTML, so it would be dead without JavaScript");
+  }
+}
+
 // Illustration files stay small.
 if (existsSync("public/illustrations")) {
   for (const f of readdirSync("public/illustrations")) {
