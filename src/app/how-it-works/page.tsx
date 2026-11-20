@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
 import { PageHero, Section } from "@/components/PageShell";
 import { Art, Split } from "@/components/Art";
@@ -22,6 +23,8 @@ const STEPS = [
   ["See what changed.", "The tutor writes feedback after each class. Short assessments show what your child has mastered. A monthly report shows the trend."],
 ];
 
+const STEP_POSES = ["search", "shield", "lead", "found"] as const;
+
 export default function HowItWorks() {
   const crumbs = [
     { name: "Tiisha", path: "/" },
@@ -34,7 +37,7 @@ export default function HowItWorks() {
         crumbs={crumbs}
         title="From first search to first class in a day."
         lead="Four steps, from telling us about your child to seeing what changed."
-        art={<Art name="pip-wave" eager />}
+        art={<Duo pose="hello" />}
       >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
@@ -47,6 +50,7 @@ export default function HowItWorks() {
         <ol className="steps">
           {STEPS.map(([h, p], i) => (
             <li className="step" key={h}>
+              <Duo pose={STEP_POSES[i]} className="step-duo" />
               <span className="num" aria-hidden="true">
                 {i + 1}
               </span>

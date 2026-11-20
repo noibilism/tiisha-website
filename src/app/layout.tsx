@@ -54,6 +54,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <Motion />
         <CharacterMotion />
+        <div className="scroll-dots" aria-hidden="true">
+          <i />
+          <i />
+        </div>
       </body>
     </html>
   );

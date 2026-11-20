@@ -20,6 +20,28 @@ const MAX = 14; // pupil travel in svg units. The eye is 35 across, the pupil 18
 export function CharacterMotion() {
   const path = usePathname();
 
+  // Scroll progress as two dots filling, one then the other. Not motion for its own sake, so it runs with reduced motion too.
+  useEffect(() => {
+    const root = document.documentElement;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const room = root.scrollHeight - window.innerHeight;
+      root.style.setProperty("--sp", room > 240 ? Math.min(1, Math.max(0, window.scrollY / room)).toFixed(3) : "0");
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [path]);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;

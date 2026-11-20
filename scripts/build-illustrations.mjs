@@ -1,5 +1,5 @@
 // Generates the original Tiisha illustration set into public/illustrations.
-// Pip is a pencil character: the brand guide calls sun yellow "the pencil body".
+// Scenes only. The characters are the "ii" mark, built in src/components/Characters.tsx (Pip the pencil was retired).
 // Palette comes from src/app/tokens.css. Run: node scripts/build-illustrations.mjs
 import { mkdirSync, writeFileSync } from "node:fs";
 
@@ -30,133 +30,12 @@ const dedupe = (markup) =>
     return tag.replace(/ stroke-width="[^"]*"/g, (m) => (++seen === all.length ? last : ""));
   });
 
-/** Idle motion lives inside the file so it works from an <img>. Reduced motion turns it off. */
-const MOTION = `<style>.eyes{transform-box:fill-box;transform-origin:50% 50%;animation:pip-blink 5.5s infinite}@keyframes pip-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}.wave{transform-origin:130px 118px;animation:pip-wave 4.5s ease-in-out infinite}@keyframes pip-wave{0%,40%,100%{transform:rotate(0)}8%{transform:rotate(-14deg)}16%{transform:rotate(6deg)}24%{transform:rotate(-12deg)}32%{transform:rotate(4deg)}}@media(prefers-reduced-motion:reduce){.eyes,.wave{animation:none}}</style>`;
 
 const svg = (w, h, title, body, decorative = false) =>
   dedupe(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"${
     decorative ? ' aria-hidden="true"' : ' role="img"'
-  }><title>${title}</title>${/class="(eyes|wave)"/.test(body) ? MOTION : ""}${body}</svg>`) + "\n";
+  }><title>${title}</title>${body}</svg>`) + "\n";
 
-/* ---------- Pip ---------- */
-
-const eyes = (mode = "open") => {
-  if (mode === "happy")
-    return `<path d="M82 106q6-9 12 0M106 106q6-9 12 0" fill="none" ${S} stroke-width="3.5"/>`;
-  const [dx, dy] = mode === "up" ? [2, -2] : mode === "down" ? [0, 2] : [0, 0];
-  const eye = (x) =>
-    `<circle cx="${x}" cy="104" r="7" fill="${C.ink}"/><circle cx="${x + dx + 2}" cy="${104 + dy - 2}" r="2.4" fill="#fff"/>`;
-  return `<g class="eyes">${eye(88)}${eye(112)}</g>`;
-};
-const mouth = (mode = "smile") => {
-  if (mode === "open")
-    return `<path d="M88 117q12 18 24 0z" fill="${C.coral}" ${S} stroke-width="3"/>`;
-  if (mode === "hmm") return `<path d="M93 121h14" fill="none" ${S} stroke-width="3.5"/>`;
-  return `<path d="M91 117q9 11 18 0" fill="none" ${S} stroke-width="3.5"/>`;
-};
-const star = (cx, cy, r, extra = "") => {
-  const pts = Array.from({ length: 10 }, (_, i) => {
-    const a = (Math.PI / 5) * i - Math.PI / 2;
-    const rr = i % 2 ? r * 0.45 : r;
-    return `${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)}`;
-  });
-  return `<path d="M${pts.join("L")}z" fill="${C.sun}" ${S} stroke-width="3.5"${extra}/>`;
-};
-const hand = (x, y) => `<circle cx="${x}" cy="${y}" r="8" fill="${C.sun}" ${S} stroke-width="3.5"/>`;
-const arm = (d) => `<path d="${d}" fill="none" ${S} stroke-width="5"/>`;
-
-/** Shared pencil body. Arms and props are drawn by each pose. */
-const pip = (face, armsBack, armsFront, extra = "") => `
-${extra}
-${armsBack}
-<path d="M84 172l-6 34M116 172l6 34" fill="none" ${S} stroke-width="5"/>
-<ellipse cx="76" cy="210" rx="12" ry="7" fill="${C.brand}" ${S} stroke-width="3.5"/>
-<ellipse cx="124" cy="210" rx="12" ry="7" fill="${C.brand}" ${S} stroke-width="3.5"/>
-<path d="M70 168h60l-30 42z" fill="${C.wood}" ${S}/>
-<path d="M91 196h18l-9 14z" fill="${C.ink}"/>
-<rect x="70" y="62" width="60" height="108" fill="${C.sun}" ${S}/>
-<path d="M118 66v100" stroke="${C.sunDeep}" stroke-width="10" stroke-linecap="round"/>
-<rect x="70" y="50" width="60" height="14" fill="${C.metal}" ${S} stroke-width="3.5"/>
-<path d="M70 28a12 12 0 0 1 12-12h36a12 12 0 0 1 12 12v22H70z" fill="${C.coral}" ${S}/>
-<ellipse cx="80" cy="122" rx="6" ry="4.5" fill="${C.coral}" opacity=".55"/>
-<ellipse cx="120" cy="122" rx="6" ry="4.5" fill="${C.coral}" opacity=".55"/>
-${face}
-${armsFront}`;
-
-const poses = {
-  wave: {
-    title: "Pip, the Tiisha pencil, waving hello",
-    body: pip(
-      eyes() + mouth(),
-      arm("M70 126q-16 12-14 28"),
-      hand(56, 156) +
-        `<g class="wave">${arm("M130 118q22-4 28-34")}${hand(158, 78)}<path d="M172 62q8 8 4 20M180 56q12 12 6 30" fill="none" stroke="${C.coral}" stroke-width="4" stroke-linecap="round"/></g>`,
-    ),
-  },
-  read: {
-    title: "Pip reading a book",
-    body: pip(
-      eyes("down") + mouth(),
-      "",
-      `<path d="M62 146q38-14 76 0v34q-38-14-76 0z" fill="${C.white}" ${S}/>
-       <path d="M100 150v34" ${S} stroke-width="3.5" fill="none"/>
-       <path d="M70 156q14-4 24 0M70 164q14-4 24 0M106 156q14-4 24 0M106 164q14-4 24 0" fill="none" stroke="${C.brand}" stroke-width="3" stroke-linecap="round"/>
-       ${arm("M70 128q-12 14-2 22")}${arm("M130 128q12 14 2 22")}${hand(66, 152)}${hand(134, 152)}`,
-    ),
-  },
-  celebrate: {
-    title: "Pip celebrating with a star",
-    body: pip(
-      eyes("happy") + mouth("open"),
-      "",
-      arm("M70 122q-24-8-28-44") + arm("M130 122q24-8 28-44") + hand(42, 72) + hand(158, 72) +
-        star(158, 42, 20),
-      `<circle cx="34" cy="40" r="4" fill="${C.coral}"/><circle cx="168" cy="38" r="4" fill="${C.leaf}"/>
-       <circle cx="22" cy="92" r="3.5" fill="${C.brand}"/><circle cx="182" cy="96" r="3.5" fill="${C.coral}"/>
-       <path d="M46 20l8 8M156 16l8 8" stroke="${C.violet}" stroke-width="4" stroke-linecap="round"/>`,
-    ),
-  },
-  think: {
-    title: "Pip thinking it over",
-    body: pip(
-      eyes("up") + mouth("hmm"),
-      arm("M70 130q-14 14-10 30"),
-      arm("M130 134q10 6-8 -4") + `<path d="M130 136q12-2 2-16" fill="none" ${S} stroke-width="5"/>` + hand(60, 162) + hand(128, 122),
-      `<circle cx="150" cy="58" r="4" fill="${C.line}" stroke="${C.ink}" stroke-width="2.5"/><circle cx="162" cy="44" r="6" fill="${C.line}" stroke="${C.ink}" stroke-width="2.5"/>
-       <ellipse cx="176" cy="22" rx="20" ry="16" fill="${C.white}" ${S} stroke-width="3.5"/>
-       <path d="M169 18a7 7 0 1 1 10 6q-3 2-3 6" fill="none" stroke="${C.brand}" stroke-width="4" stroke-linecap="round"/><circle cx="176" cy="35" r="2.4" fill="${C.brand}"/>`,
-    ),
-    w: 210,
-  },
-  laptop: {
-    title: "Pip teaching on a video call with a laptop",
-    body: pip(
-      eyes() + mouth(),
-      "",
-      `<path d="M58 176l10-34h64l10 34z" fill="${C.navy}" ${S} stroke-width="3.5"/>
-       <rect x="72" y="146" width="56" height="24" rx="3" fill="${C.sunken}"/>
-       <circle cx="88" cy="156" r="5" fill="${C.brand}"/><path d="M80 168q8-9 16 0z" fill="${C.brand}"/>
-       <path d="M104 152h18M104 158h14M104 164h18" stroke="${C.navy}" stroke-width="3" stroke-linecap="round"/>
-       <rect x="50" y="176" width="100" height="8" rx="4" fill="${C.metal}" ${S} stroke-width="3.5"/>
-       ${arm("M70 128q-18 22-6 44")}${arm("M130 128q18 22 6 44")}${hand(64, 174)}${hand(136, 174)}`,
-      `<rect x="136" y="14" width="56" height="42" rx="10" fill="${C.white}" ${S} stroke-width="3.5"/>
-       <circle cx="164" cy="30" r="8" fill="${C.leaf}"/><path d="M150 50q14-14 28 0z" fill="${C.leaf}"/>
-       <circle cx="184" cy="22" r="3" fill="${C.coral}"/>`,
-    ),
-    w: 210,
-  },
-  point: {
-    title: "Pip pointing the way",
-    body: pip(
-      eyes() + mouth(),
-      arm("M70 126q-14 12-8 26") + hand(62, 154),
-      arm("M130 120l36-12") + hand(168, 108) +
-        `<path d="M176 104l12-6" ${S} stroke-width="4" fill="none"/>`,
-      `<path d="M184 70l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" fill="${C.sun}" ${S} stroke-width="3"/>`,
-    ),
-    w: 210,
-  },
-};
 
 /* ---------- Scenes ---------- */
 
@@ -327,10 +206,6 @@ ${Array.from({ length: 15 }, (_, n) => {
 /* ---------- Write ---------- */
 
 mkdirSync("public/illustrations", { recursive: true });
-for (const [name, p] of Object.entries(poses)) {
-  const w = p.w || 200;
-  writeFileSync(`public/illustrations/pip-${name}.svg`, svg(w, 232, p.title, p.body));
-}
 for (const [name, s] of Object.entries(scenes)) {
   writeFileSync(`public/illustrations/${name}.svg`, svg(s.w, s.h, s.title, s.body));
 }

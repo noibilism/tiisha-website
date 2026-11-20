@@ -12,7 +12,6 @@ import { useEffect, useRef } from "react";
  * - Page transitions: soft navigations are wrapped in the View Transitions API where it exists.
  *   Browsers without it navigate as normal. Back and forward are untouched, so scroll restoration works.
  * - Header: tightens once the page has scrolled.
- * - Pip: says hello once when it scrolls in, and floats gently while on screen.
  * - FAQ table of contents: marks the topic being read.
  *
  * Motion (the small vanilla build of the Motion library) is only loaded after the page is idle,
@@ -108,9 +107,13 @@ export function Motion() {
         () =>
           new Promise<void>((resolve) => {
             // Resolve when the new route has rendered, with a ceiling so a slow network never blocks the page.
+            // On a slow connection the two scroll dots turn into a loader until the page arrives.
+            const slow = window.setTimeout(() => document.documentElement.setAttribute("data-nav", "slow"), 400);
             const done = () => {
               pending.current = null;
               window.clearTimeout(timer);
+              window.clearTimeout(slow);
+              document.documentElement.removeAttribute("data-nav");
               resolve();
             };
             const timer = window.setTimeout(done, 1500);
@@ -130,7 +133,7 @@ export function Motion() {
     if (done) requestAnimationFrame(() => requestAnimationFrame(done));
   }, [pathname]);
 
-  // Reveals, Pip and the FAQ table of contents. Runs again on every route.
+  // Reveals and the FAQ table of contents. Runs again on every route.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let cancelled = false;
@@ -176,26 +179,6 @@ export function Motion() {
             ),
           );
         });
-      }
-
-      // Pip says hello once when it comes into view, and floats while visible.
-      for (const pip of Array.from(document.querySelectorAll<HTMLElement>(".art-pip"))) {
-        let greeted = false;
-        stops.push(
-          inView(
-            pip,
-            () => {
-              if (!greeted) {
-                greeted = true;
-                pip.classList.add("hello");
-                window.setTimeout(() => pip.classList.remove("hello"), 1000);
-              }
-              pip.classList.add("live");
-              return () => pip.classList.remove("live");
-            },
-            { amount: 0.5 },
-          ),
-        );
       }
 
       // FAQ table of contents: mark the group being read.

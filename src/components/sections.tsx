@@ -22,6 +22,8 @@ export const HERO = {
     "Live one-to-one classes with verified tutors, wherever you are. Book and pay online, watch every class, and get a progress report every month. Homework help, catching up and exam prep.",
 };
 
+const STEP_POSES = ["search", "shield", "lead", "found"] as const;
+
 export function Hero() {
   return (
     <section className="hero on-dark">
@@ -80,6 +82,7 @@ export function HowItWorks() {
         <ol className="steps">
           {steps.map(([h, p], i) => (
             <li className="step" key={h}>
+              <Duo pose={STEP_POSES[i]} className="step-duo" />
               <span className="num" aria-hidden="true">
                 {i + 1}
               </span>
@@ -213,7 +216,7 @@ export function SubjectLinks() {
   return (
     <section className="section surface">
       <div className="wrap">
-        <Split reverse art={<Art name="pip-point" />}>
+        <Split reverse art={<Duo pose="curious" />}>
           <div>
             <h2 className="title">Find a tutor by subject.</h2>
             <p className="lead">Tutors list the subjects, grades and exams they teach. Start with the subject your child needs.</p>
@@ -234,7 +237,7 @@ export function SubjectLinks() {
 export function ClosingCta({ mascot = true }: { mascot?: boolean }) {
   return (
     <section className="cta on-dark">
-      {mascot && <Art name="pip-celebrate" className="cta-pip" />}
+      {mascot && <Duo pose="celebrate" className="cta-duo" />}
       <h2>Your child&apos;s next good class is a day away.</h2>
       <div className="btn-row">
         <Link href={links.signup} className="btn btn-sun">

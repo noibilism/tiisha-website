@@ -2,17 +2,11 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 /**
- * Original Tiisha illustrations (Pip the pencil and small scenes) from public/illustrations.
+ * Original Tiisha illustrations (small scenes; the characters live in Characters.tsx) from public/illustrations.
  * Sizes match each SVG's viewBox so the browser reserves space before it loads (no layout shift).
  * Decorative by default (empty alt, hidden from assistive tech). Pass `alt` when the picture carries meaning.
  */
 const ART = {
-  "pip-wave": [200, 232],
-  "pip-read": [200, 232],
-  "pip-celebrate": [200, 232],
-  "pip-think": [210, 232],
-  "pip-laptop": [210, 232],
-  "pip-point": [210, 232],
   "scene-tablet-tutor": [360, 260],
   "scene-tutor-checks": [320, 260],
   "scene-calendar": [300, 240],
@@ -41,7 +35,7 @@ export function Art({
     // Above the fold: inline the SVG (about 3 KB). It needs no extra request, shifts nothing because it has explicit
     // dimensions, and an inline SVG is not an LCP candidate, so big hero art cannot slow the largest paint.
     const raw = readFileSync(join(process.cwd(), "public", "illustrations", `${name}.svg`), "utf8").trim();
-    const cls = `art ${name.startsWith("pip") ? "art-pip" : "art-scene"} ${className}`.trim();
+    const cls = `art art-scene ${className}`.trim();
     const label = alt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
     const svg = raw
       .replace(/<title>[^<]*<\/title>/, alt ? `<title>${label}</title>` : "")
@@ -60,7 +54,7 @@ export function Art({
       {...(alt ? {} : { "aria-hidden": true })}
       loading="lazy"
       decoding="async"
-      className={`art ${name.startsWith("pip") ? "art-pip" : "art-scene"} ${className}`.trim()}
+      className={`art art-scene ${className}`.trim()}
     />
   );
 }

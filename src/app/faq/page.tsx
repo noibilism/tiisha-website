@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
-import { Art } from "@/components/Art";
 import { FaqCenter } from "@/components/FaqCenter";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero, Section } from "@/components/PageShell";
@@ -24,7 +24,7 @@ export default function FaqPage() {
         crumbs={crumbs}
         title="Questions and answers"
         lead="Plain answers about booking, paying, safety, recordings, tutor checks and how classes work."
-        art={<Art name="pip-read" eager />}
+        art={<Duo pose="curious" />}
       />
       <Section>
         <FaqCenter />

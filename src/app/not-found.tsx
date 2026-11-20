@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
-import { Art, Split } from "@/components/Art";
+
 import { links } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function NotFound() {
         </div>
         </div>
         <div className="hero-art not-found-art">
-          <Art name="pip-think" eager />
+          <Duo pose="lost" />
         </div>
       </div>
     </section>

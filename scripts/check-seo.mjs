@@ -153,6 +153,20 @@ if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was n
   if (home.querySelector(".tutor-card")) fail("/", "the old hero tutor card should be gone");
 }
 
+// Pip is retired: no pencil illustrations or classes anywhere, and the pair appears where it should.
+{
+  for (const f of pages) {
+    const h = readFileSync(f, "utf8");
+    const page = "/" + relative(ROOT, f).replace(/index\.html$/, "").replace(/\.html$/, "");
+    if (/pip-|art-pip/.test(h)) fail(page, "still references Pip");
+  }
+  const get = (f) => parse(readFileSync(join(ROOT, f), "utf8"));
+  if (get("how-it-works.html").querySelectorAll(".steps svg.step-duo").length !== 4) fail("/how-it-works", "each of the four steps needs its character pose");
+  if (get("faq.html").querySelectorAll(".faq-toc-art svg.ii-duo").length !== 4) fail("/faq", "FAQ needs the four search-state poses");
+  if (!get("_not-found.html").querySelector('svg.ii-duo[data-pose="lost"]')) fail("/_not-found", "404 needs the lost pose");
+  if (!get("index.html").querySelector("footer svg.ii-duo")) fail("/", "footer sign-off character missing");
+}
+
 // Platforms: web, iOS and Android are stated, and store buttons never lead nowhere.
 {
   const html = (f) => parse(readFileSync(join(ROOT, f), "utf8"));

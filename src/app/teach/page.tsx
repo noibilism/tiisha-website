@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
 import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
@@ -38,6 +39,8 @@ const APPROVAL = [
 
 const TUTOR_PAGE_FAQ = [...TUTOR_FAQ.slice(0, 2), TUTOR_FEE_FAQ, ...TUTOR_FAQ.slice(2)];
 
+const TEACH_STEP_POSES = ["wave", "shield", "lead"] as const;
+
 export default function Teach() {
   const crumbs = [
     { name: "Tiisha", path: "/" },
@@ -49,7 +52,7 @@ export default function Teach() {
         crumbs={crumbs}
         title={title}
         lead="Set your own price and hours. Teach live from your phone or laptop. Families around the world are looking for tutors like you. You are paid in your own currency."
-        art={<Art name="pip-laptop" eager />}
+        art={<Duo pose="lead" />}
       >
         <div className="btn-row">
           <Link href={links.apply} className="btn btn-sun">
@@ -94,6 +97,7 @@ export default function Teach() {
         <ol className="steps three">
           {APPROVAL.map(([h, p], i) => (
             <li className="step" key={h}>
+              <Duo pose={TEACH_STEP_POSES[i]} className="step-duo" />
               <span className="num" aria-hidden="true">
                 {i + 1}
               </span>
@@ -114,7 +118,7 @@ export default function Teach() {
       </Section>
 
       <section className="cta on-dark">
-        <Art name="pip-celebrate" className="cta-pip" />
+        <Duo pose="celebrate" className="cta-duo" />
         <h2>Ready to teach?</h2>
         <div className="btn-row">
           <Link href={links.apply} className="btn btn-sun">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Art, Split } from "@/components/Art";
@@ -42,7 +43,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     { name: s.name, path },
   ];  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));  return (
     <>
-      <PageHero crumbs={crumbs} title={s.h1} lead={s.intro} art={<Art name="pip-wave" eager />}>
+      <PageHero crumbs={crumbs} title={s.h1} lead={s.intro} art={<Duo pose="wave" />}>
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
             Find a tutor
@@ -62,7 +63,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
       </Section>
 
       <Section tone="surface" title="Who it suits">
-        <Split reverse art={<Art name="pip-read" />}>
+        <Split reverse art={<Duo pose="read" />}>
         <ul className="checks" style={{ maxWidth: 760 }}>
           {s.suits.map((x) => (
             <li key={x} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontSize: 18 }}>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Art, Split } from "@/components/Art";
+import { Duo } from "@/components/Characters";
+
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import {
@@ -44,7 +45,7 @@ export default function Home() {
           <h2 className="title">Questions parents ask</h2>
           <div className="faq-aside">
             <FaqList items={faqs} />
-            <Art name="pip-think" />
+            <Duo pose="think" />
           </div>
         </div>
       </section>

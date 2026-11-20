@@ -1,4 +1,4 @@
-import { Art } from "./Art";
+import { Duo } from "./Characters";
 import { Chevron } from "./Icons";
 import { FaqSearch } from "./FaqSearch";
 import { allGroupFaqs, faqSlug, FAQ_GROUPS } from "@/content/faq";
@@ -19,7 +19,13 @@ export function FaqCenter() {
           ))}
         </ul>
       </nav>
-      <Art name="pip-point" className="faq-toc-art" />
+      {/* The pair reacts to the search box: curious at rest, thinking while narrowing, lost with no match, happy on an answer. */}
+      <div className="faq-toc-art" data-state="idle" aria-hidden="true">
+        <Duo pose="curious" className="s-idle" />
+        <Duo pose="think" className="s-search" />
+        <Duo pose="lost" className="s-none" />
+        <Duo pose="found" className="s-found" />
+      </div>
       </div>
       <div className="faq-body">
         <FaqSearch total={total} />

@@ -7,6 +7,11 @@ import { useEffect, useRef, useState } from "react";
  * This only adds a filter box, which appears once the script has loaded, and opens a question
  * when the page is loaded with its anchor (#q-...).
  */
+function setMood(state: string) {
+  document.querySelector(".faq-toc-art")?.setAttribute("data-state", state);
+}
+const moodNow = { current: "idle" };
+
 export function FaqSearch({ total }: { total: number }) {
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -14,7 +19,9 @@ export function FaqSearch({ total }: { total: number }) {
   const root = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    root.current = document.getElementById("faq-groups");
+    const groupsEl = document.getElementById("faq-groups");
+    root.current = groupsEl;
+    if (!groupsEl) return;
     setReady(true);
     const open = () => {
       const id = decodeURIComponent(window.location.hash.slice(1));
@@ -26,7 +33,21 @@ export function FaqSearch({ total }: { total: number }) {
     };
     open();
     window.addEventListener("hashchange", open);
-    return () => window.removeEventListener("hashchange", open);
+    // The character pair beside the topics is happy for a moment whenever an answer opens.
+    let t = 0;
+    const found = (e: Event) => {
+      if (!(e.target instanceof HTMLDetailsElement) || !e.target.open) return;
+      setMood("found");
+      window.clearTimeout(t);
+      t = window.setTimeout(() => setMood(moodNow.current), 2600);
+    };
+    const groups = groupsEl;
+    groups.addEventListener("toggle", found, true);
+    return () => {
+      window.removeEventListener("hashchange", open);
+      groups.removeEventListener("toggle", found, true);
+      window.clearTimeout(t);
+    };
   }, []);
 
   useEffect(() => {
@@ -49,6 +70,8 @@ export function FaqSearch({ total }: { total: number }) {
       g.hidden = !g.querySelector("details[data-faq]:not([hidden])");
     }
     setShown(count);
+    moodNow.current = terms.length === 0 ? "idle" : count === 0 ? "none" : "search";
+    setMood(moodNow.current);
   }, [query]);
 
   // The slot keeps its height before the script runs, so the page does not jump. Without JavaScript it collapses.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
-import { Art, Split } from "@/components/Art";
+
 import { PageHero, Section } from "@/components/PageShell";
 import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
@@ -20,7 +21,7 @@ export default function Tutors() {
   ];  return (
     <>
       <PageHero crumbs={crumbs} title="Online tutors by subject" lead="Live one-to-one classes with verified tutors. Pick what your child needs."
-        art={<Art name="pip-read" eager />}
+        art={<Duo pose="search" />}
       >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
@@ -39,8 +40,8 @@ export default function Tutors() {
             </li>
           ))}
           <li className="span2">
-            <div className="pip-card">
-              <Art name="pip-point" />
+            <div className="duo-card">
+              <Duo pose="curious" />
               <div>
                 <span className="h">Not sure where to start?</span>
                 <span className="d">Pick the subject your child finds hardest. A good first class starts there.</span>

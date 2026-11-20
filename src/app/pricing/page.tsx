@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Duo } from "@/components/Characters";
 import Link from "next/link";
 import { Art, Split } from "@/components/Art";
 import { PageHero, Section } from "@/components/PageShell";
@@ -36,7 +37,7 @@ export default function Pricing() {
   return (
     <>
       <PageHero crumbs={crumbs} title="Clear prices in your own currency." lead="Each tutor sets their own price. You see it in your currency when you book, and that is what you pay."
-        art={<Art name="pip-celebrate" eager />}
+        art={<Duo pose="found" />}
       >
         <div className="btn-row">
           <Link href={links.signup} className="btn btn-sun">
@@ -71,7 +72,7 @@ export default function Pricing() {
       <Section tone="surface" title="Pricing questions">
         <div className="faq-aside">
           <FaqList items={FAQ} />
-          <Art name="pip-read" />
+          <Duo pose="think" />
         </div>
       </Section>
       <ClosingCta />

@@ -49,6 +49,7 @@ export function Section({
   return (
     <section id={id} className={`section ${tone}${tone === "navy" ? " on-dark" : ""}`}>
       <div className="wrap">
+        {title && <span className="dot-pair" aria-hidden="true" />}
         {title && <h2 className="title">{title}</h2>}
         {children}
       </div>
