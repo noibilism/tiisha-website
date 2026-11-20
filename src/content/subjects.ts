@@ -28,7 +28,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online maths tutors, live and one to one",
     title: "Online maths tutors for every grade and exam",
     description:
-      "Book verified online maths (math) tutors for live one-to-one classes. Homework help, catching up and exam prep, with every class recorded and a monthly progress report.",
+      "Verified online maths (math) tutors for live one-to-one classes. Homework help, catching up and exam prep. Every class recorded.",
     intro:
       "Maths is the subject where one missed idea quietly breaks the next five. A one-to-one tutor can find the missing idea and fix it before it grows.",
     what: [
@@ -77,7 +77,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online English tutors, live and one to one",
     title: "Online English tutors for reading, writing and exams",
     description:
-      "Book verified online English tutors for live one-to-one classes. Reading, writing, grammar, comprehension and exam preparation, recorded, with a monthly progress report.",
+      "Verified online English tutors for live one-to-one classes. Reading, writing, comprehension and exams. Every class recorded.",
     intro:
       "English is the subject behind every other subject. A child who reads closely and writes clearly does better across the whole timetable.",
     what: [
@@ -124,9 +124,9 @@ export const SUBJECTS: Subject[] = [
     name: "Science",
     kind: "subject",
     h1: "Online science tutors, live and one to one",
-    title: "Online science tutors for primary, middle and secondary school",
+    title: "Online science tutors for school and exams",
     description:
-      "Book verified online science tutors for live one-to-one classes, from general science in primary and middle school to the exams that follow. Recorded, with monthly progress reports.",
+      "Verified online science tutors for live one-to-one classes, from general science to the exams that follow. Every class recorded.",
     intro:
       "Science asks children to understand an idea, then use it on a question they have not seen. A tutor can slow down on the idea and speed up on the practice.",
     what: [
@@ -174,7 +174,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online physics tutors, live and one to one",
     title: "Online physics tutors for GCSE, A level, WAEC and more",
     description:
-      "Book verified online physics tutors for live one-to-one classes. Forces, energy, electricity, waves and exam preparation, recorded, with a monthly progress report.",
+      "Verified online physics tutors for live one-to-one classes. Forces, energy, electricity, waves and exam preparation. Every class recorded.",
     intro:
       "Physics rewards children who can turn a picture into an equation and an equation into a sentence. That skill is easier to build with a tutor watching the working.",
     what: [
@@ -222,7 +222,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online chemistry tutors, live and one to one",
     title: "Online chemistry tutors for GCSE, A level, WAEC and more",
     description:
-      "Book verified online chemistry tutors for live one-to-one classes. Atoms, bonding, reactions, calculations and exam preparation, recorded, with monthly progress reports.",
+      "Verified online chemistry tutors for live one-to-one classes. Reactions, calculations and exam preparation. Every class recorded.",
     intro:
       "Chemistry has its own language of symbols, equations and patterns. Once a student can read that language, the subject starts to feel logical.",
     what: [
@@ -270,7 +270,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online biology tutors, live and one to one",
     title: "Online biology tutors for GCSE, A level, WAEC and more",
     description:
-      "Book verified online biology tutors for live one-to-one classes. Cells, body systems, genetics, ecology and exam preparation, recorded, with monthly progress reports.",
+      "Verified online biology tutors for live one-to-one classes. Cells, genetics, ecology and exam preparation. Every class recorded.",
     intro:
       "Biology is a large subject with a lot to remember and a lot to explain. A tutor helps a student sort what to memorise from what to understand.",
     what: [
@@ -318,7 +318,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online coding tutors for children, live and one to one",
     title: "Online coding tutors for children and teenagers",
     description:
-      "Book verified online coding tutors for live one-to-one classes. Beginner projects, school computing and exam support, recorded, with feedback after each class.",
+      "Verified online coding tutors for live one-to-one classes. Beginner projects, school computing and exam support. Every class recorded.",
     intro:
       "Coding teaches children to break a problem into steps and test their own thinking. A tutor keeps a beginner moving and an experienced student challenged.",
     what: [
@@ -365,9 +365,9 @@ export const SUBJECTS: Subject[] = [
     name: "11 plus",
     kind: "exam",
     h1: "Online 11 plus tutors, live and one to one",
-    title: "Online 11 plus tutors for grammar and independent school entry",
+    title: "Online 11 plus tutors for selective school entry",
     description:
-      "Book verified online 11 plus tutors for live one-to-one classes. English, maths and reasoning preparation for selective school entry, recorded, with a monthly progress report.",
+      "Verified online 11 plus tutors for live one-to-one classes. English, maths and reasoning for selective school entry. Every class recorded.",
     intro:
       "The 11 plus is a selective school entrance test taken by children in the UK. Preparation is about both the content and getting used to the style of the papers.",
     what: [
@@ -411,7 +411,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online GCSE tutors, live and one to one",
     title: "Online GCSE tutors for every subject and exam board",
     description:
-      "Book verified online GCSE tutors for live one-to-one classes. Maths, English, sciences and more, with exam board support, recorded classes and a monthly progress report.",
+      "Verified online GCSE tutors for live one-to-one classes. Maths, English, sciences and more, with exam board support. Every class recorded.",
     intro:
       "GCSEs are the first set of national exams many students sit in the UK. A tutor can help a student turn good classwork into good exam answers.",
     what: [
@@ -455,7 +455,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online A level tutors, live and one to one",
     title: "Online A level tutors for sixth form students",
     description:
-      "Book verified online A level tutors for live one-to-one classes. Maths, sciences and more, with exam board support, recorded classes and a monthly progress report.",
+      "Verified online A level tutors for live one-to-one classes. Maths, sciences and more, with exam board support. Every class recorded.",
     intro:
       "A levels step up the pace and the depth. A tutor helps a student keep up with new content and learn how to write answers that earn top marks.",
     what: [
@@ -499,7 +499,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online SAT tutors, live and one to one",
     title: "Online SAT tutors for US college admissions",
     description:
-      "Book verified online SAT tutors for live one-to-one classes. Reading and writing, maths, timed practice and feedback, recorded, with a monthly progress report.",
+      "Verified online SAT tutors for live one-to-one classes. Reading and writing, maths and timed practice. Every class recorded.",
     intro:
       "The SAT is a standardised test used in US college admissions. Good preparation covers the content and builds comfort with the format and the clock.",
     what: [
@@ -543,7 +543,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online ACT tutors, live and one to one",
     title: "Online ACT tutors for US college admissions",
     description:
-      "Book verified online ACT tutors for live one-to-one classes. English, maths, reading and timed practice, recorded, with a monthly progress report.",
+      "Verified online ACT tutors for live one-to-one classes. English, maths, reading and timed practice. Every class recorded.",
     intro:
       "The ACT is a standardised test used in US college admissions. It rewards speed and accuracy, which are skills that improve with guided practice.",
     what: [
@@ -586,7 +586,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online WAEC tutors, live and one to one",
     title: "Online WAEC and WASSCE tutors for Nigeria and Ghana",
     description:
-      "Book verified online WAEC and WASSCE tutors for live one-to-one classes. Maths, English, sciences and more, with past question practice, recorded classes and monthly reports.",
+      "Verified online WAEC and WASSCE tutors for live one-to-one classes. Maths, English, sciences and past question practice. Every class recorded.",
     intro:
       "The WASSCE, set by WAEC, is the exam that closes senior secondary school in Nigeria and Ghana. Strong results open doors to university, so preparation matters.",
     what: [
@@ -631,7 +631,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online NECO tutors, live and one to one",
     title: "Online NECO tutors for Nigerian secondary school students",
     description:
-      "Book verified online NECO tutors for live one-to-one classes. Maths, English, sciences and more, with past question practice, recorded classes and monthly progress reports.",
+      "Verified online NECO tutors for live one-to-one classes. Maths, English, sciences and past question practice. Every class recorded.",
     intro:
       "NECO is one of the two main exams that close senior secondary school in Nigeria. A tutor can help your child cover the syllabus and practise how questions are asked.",
     what: [
@@ -674,7 +674,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online JAMB UTME tutors, live and one to one",
     title: "Online JAMB UTME tutors for Nigerian university entry",
     description:
-      "Book verified online JAMB UTME tutors for live one-to-one classes. Use of English and subject preparation, timed practice in the JAMB format, recorded classes and monthly reports.",
+      "Verified online JAMB UTME tutors for live one-to-one classes. Use of English and subjects, with practice in the JAMB format. Every class recorded.",
     intro:
       "The JAMB UTME is the entrance test for Nigerian universities and other tertiary institutions. Good scores come from knowing the content and the clock.",
     what: [
@@ -718,7 +718,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online BECE tutors, live and one to one",
     title: "Online BECE tutors for JHS students in Ghana",
     description:
-      "Book verified online BECE tutors for live one-to-one classes. English, maths, science and social studies, with past question practice, recorded classes and monthly progress reports.",
+      "Verified online BECE tutors for live one-to-one classes. English, maths, science and past question practice. Every class recorded.",
     intro:
       "The BECE is the exam at the end of Junior High School in Ghana. Its results play a large part in where a student goes next, so it is worth preparing well.",
     what: [
@@ -762,7 +762,7 @@ export const SUBJECTS: Subject[] = [
     h1: "Online KCSE tutors, live and one to one",
     title: "Online KCSE tutors for Kenyan secondary school students",
     description:
-      "Book verified online KCSE tutors for live one-to-one classes. Maths, English, sciences and more, with exam preparation, recorded classes and monthly progress reports.",
+      "Verified online KCSE tutors for live one-to-one classes. Maths, English, sciences and exam preparation. Every class recorded.",
     intro:
       "The KCSE is the national exam at the end of secondary school in Kenya. Its grades shape what comes next, so students and families take preparation seriously.",
     what: [

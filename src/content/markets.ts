@@ -104,7 +104,7 @@ export const MARKETS: Market[] = [
       a: "Yes. Pick JAMB UTME as the goal and we show tutors who teach it, with practice assessments in the JAMB format.",
     },
     level: "JSS 1",
-    titleKeywords: "Online tutors for Common Entrance, WAEC, NECO and JAMB",
+    titleKeywords: "Online tutors for WAEC, NECO, JAMB and more",
   },
   {
     slug: "gh",

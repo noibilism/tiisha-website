@@ -69,7 +69,7 @@ export default function Teach() {
 
       <Section id="approval" tone="surface" title="How approval works">
         <p className="lead">Strict on purpose. Parents book verified tutors, and that is how you win bookings.</p>
-        <ol className="steps" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+        <ol className="steps three">
           {APPROVAL.map(([h, p], i) => (
             <li className="step" key={h}>
               <span className="num" aria-hidden="true">

@@ -8,7 +8,7 @@ import { links } from "@/lib/config";
 import { pageMetadata, webPageLd } from "@/lib/seo";
 
 const description =
-  "Tutors are checked before they teach, not after. Government ID with a live selfie, verified qualifications, two referees, a video interview and a bank account in their own name.";
+  "Tutors are checked before they teach, not after: ID with a live selfie, qualifications, two referees, a video interview and a bank account.";
 
 export const metadata: Metadata = pageMetadata({ title: "How we check every tutor before they teach", description, path: "/tutor-checks" });
 

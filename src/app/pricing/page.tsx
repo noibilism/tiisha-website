@@ -9,7 +9,7 @@ import { links } from "@/lib/config";
 import { faqLd, pageMetadata, serviceLd } from "@/lib/seo";
 
 const description =
-  "Each tutor sets one price per hour, shown in your currency. Pay in naira, pounds, US dollars, Canadian dollars, cedis or Kenyan shillings. Free cancellation up to 24 hours before a class.";
+  "Each tutor sets one price per hour, shown in your currency. Pay in six currencies. Free cancellation up to 24 hours before a class.";
 
 export const metadata: Metadata = pageMetadata({ title: "Online tutoring prices in your own currency", description, path: "/pricing" });
 
