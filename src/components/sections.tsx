@@ -2,6 +2,7 @@ import Link from "next/link";
 import { links } from "@/lib/config";
 import { SUBJECTS } from "@/content/subjects";
 import { Art, Split } from "./Art";
+import { Duo } from "./Characters";
 import { Check, Chart, Lock, ShieldCheck, Video } from "./Icons";
 
 export const CHECK_LINES = [
@@ -41,24 +42,8 @@ export function Hero() {
             <span>Every tutor passes ID, liveness and qualification checks before any parent sees them.</span>
           </p>
         </div>
-        <div className="tutor-card" aria-hidden="true">
-          <div className="tc-top">
-            <span className="avatar">T</span>
-            <div>
-              <div className="tc-name">Your tutor</div>
-              <div className="tc-sub">Maths. Fractions</div>
-            </div>
-            <span className="verified">
-              <ShieldCheck size={16} color="var(--leaf-strong)" />
-              Verified
-            </span>
-          </div>
-          <div className="board">1/2 + 1/4 = ?</div>
-          <div className="tags">
-            <span className="tag">Live now</span>
-            <span className="tag">Recording</span>
-            <span className="tag">Parent watching</span>
-          </div>
+        <div className="hero-duo">
+          <Duo pose="hello" lean />
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/Analytics";
 import { Motion } from "@/components/Motion";
+import { CharacterMotion } from "@/components/CharacterMotion";
 import { JsonLd } from "@/components/JsonLd";
 import { DEFAULT_DESCRIPTION, organizationLd, websiteLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/config";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[organizationLd, websiteLd]} />
         <Analytics />
         <Motion />
+        <CharacterMotion />
       </body>
     </html>
   );

@@ -14,7 +14,7 @@ export function Header() {
     <header className="site-header on-dark">
       <div className="bar">
         <Link href="/" className="brand-link" aria-label="Tiisha home">
-          <Logo />
+          <Logo eyes />
         </Link>
         <nav className="main-nav" aria-label="Main">
           {NAV.map((n) => (

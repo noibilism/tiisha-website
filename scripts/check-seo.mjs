@@ -138,6 +138,21 @@ if (existsSync(sitemapPath)) {
 } else fail("sitemap", "sitemap.xml was not generated");
 if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was not generated");
 
+// Brand characters: the hero shows the two-figure "ii" mark, inline, decorative, with eyes the tracker can drive.
+{
+  const home = parse(readFileSync(join(ROOT, "index.html"), "utf8"));
+  const hero = home.querySelector(".hero-duo svg.ii-duo");
+  if (!hero) fail("/", "hero is missing the inline brand character pair (.hero-duo svg.ii-duo)");
+  else {
+    if (hero.getAttribute("aria-hidden") !== "true") fail("/", "hero characters must be aria-hidden (decorative)");
+    if (hero.querySelectorAll("[data-eye]").length < 2) fail("/", "hero characters need two eyes ([data-eye])");
+    if (!hero.hasAttribute("data-lean")) fail("/", "hero characters should lean on scroll (data-lean)");
+    if (hero.toString().length > 15000) fail("/", "hero character svg is over 15 KB");
+  }
+  if (!home.querySelector("header svg[data-ii] [data-eye]")) fail("/", "header logo has no eyes");
+  if (home.querySelector(".tutor-card")) fail("/", "the old hero tutor card should be gone");
+}
+
 // Platforms: web, iOS and Android are stated, and store buttons never lead nowhere.
 {
   const html = (f) => parse(readFileSync(join(ROOT, f), "utf8"));
