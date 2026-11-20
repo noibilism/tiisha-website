@@ -29,7 +29,7 @@ export function coreFaq(): Faq[] {
     },
     {
       q: "Do we need a laptop?",
-      a: "No. A phone works. A laptop or tablet gives a bigger whiteboard.",
+      a: "No. A phone works, and your child can write and draw on the whiteboard from it. A laptop or tablet gives more room.",
     },
     {
       q: "Can I pay in my own currency?",
@@ -309,7 +309,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
         items: [
           {
             q: "Do I need a laptop to teach?",
-            a: "No. A phone is enough to teach, and the app has everything you need, including a whiteboard. A tablet or laptop gives you a bigger board to write on.",
+            a: "No. A phone is enough to teach, and the app has everything you need, including a whiteboard you can write and draw on. A tablet or laptop gives you more room.",
           },
           {
             q: "What do I write after a class?",
@@ -336,11 +336,11 @@ export const FAQ_GROUPS: FaqGroup[] = [
           },
           {
             q: "Can my child join a class from a phone?",
-            a: "Yes. A phone shows the video, the chat and the whiteboard. For writing and drawing, a tablet or laptop is better.",
+            a: "Yes. A phone shows the video and the chat, and you and your child can write and draw on the whiteboard from it. A tablet or laptop gives more room.",
           },
           {
             q: "Does it work on a tablet?",
-            a: "Yes, in the browser or in the app. A tablet is a good choice because the bigger screen gives a bigger whiteboard to write on. You also need a camera, a microphone and an internet connection.",
+            a: "Yes, in the browser or in the app. A tablet is a good choice because the bigger screen gives more room on the whiteboard. You also need a camera, a microphone and an internet connection.",
           },
           {
             q: "How does a live class run?",

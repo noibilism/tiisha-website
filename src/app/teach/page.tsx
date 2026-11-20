@@ -23,7 +23,7 @@ export const metadata: Metadata = pageMetadata({
 const WHY = [
   ["You set the price.", "One price per hour, in your own currency. Tiisha takes a service fee from each booking, and your earnings show after it."],
   ["You set the hours.", "Open the slots that suit you. Block the ones that do not. Times convert to each family's time zone for you."],
-  ["Your phone is enough.", "The Tiisha app runs your whole day: classes, availability, feedback and earnings."],
+  ["Your phone is enough.", "The Tiisha app runs your whole day: classes, the whiteboard, availability, feedback and earnings."],
   ["You are paid in your own currency.", "Earnings show after each approved class and pay out to your bank account."],
   ["Parents come to you.", "Your verified profile does the introducing."],
 ];

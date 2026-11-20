@@ -79,7 +79,7 @@ export default function HowItWorks() {
         <div className="prose">
           <p>
             Your child joins from a phone, tablet or laptop. The tutor teaches on a shared whiteboard, so your child sees
-            each step as it is written. A phone works. A laptop or tablet gives a bigger whiteboard.
+            each step as it is written. Your child can write and draw on it from a phone, tablet or laptop. A bigger screen gives more room.
           </p>
           <h3>Every class is recorded. You can sit in on any of them.</h3>
           <p>

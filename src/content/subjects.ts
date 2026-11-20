@@ -93,7 +93,7 @@ export const SUBJECTS: Subject[] = [
       },
       {
         q: "Can my child join from a phone?",
-        a: "Yes. A phone works. A laptop or tablet gives a bigger whiteboard.",
+        a: "Yes. The whiteboard works on a phone, tablet or laptop, and your child can draw on it from any of them. A bigger screen gives more room.",
       },
     ],
     related: ["maths", "science", "coding"],
@@ -292,7 +292,7 @@ export const SUBJECTS: Subject[] = [
       },
       {
         q: "Do we need a laptop for coding?",
-        a: "A laptop is the practical choice for writing code. A phone is enough for joining and for the whiteboard.",
+        a: "A laptop is the practical choice for writing code. A phone is enough for joining and for using the whiteboard.",
       },
     ],
     related: ["maths", "science", "physics"],
