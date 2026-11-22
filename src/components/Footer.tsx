@@ -15,6 +15,7 @@ export function Footer() {
           <Link href="/tutor-checks">Tutor checks</Link>
           <Link href="/pricing">Pricing</Link>
           <Link href="/tutors">Subjects</Link>
+          <Link href="/guides">Guides</Link>
           <Link href="/teach">Become a tutor</Link>
           <Link href="/#get-the-app">Get the app</Link>
           <Link href="/faq">Help</Link>

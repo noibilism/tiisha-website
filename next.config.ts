@@ -27,6 +27,11 @@ const config: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
+      {
+        // Illustrations and the logo are not fingerprinted, so cache them for a week and revalidate in the background.
+        source: "/illustrations/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
+      },
     ];
   },
 };

@@ -7,6 +7,7 @@ import { StoreButtons } from "@/components/Platforms";
 import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { TUTOR_FAQ, TUTOR_FEE_FAQ } from "@/content/faq";
+import { TEACH_SUBJECTS } from "@/content/teach";
 import { links } from "@/lib/config";
 import { faqLd, pageMetadata, webPageLd } from "@/lib/seo";
 
@@ -113,8 +114,22 @@ export default function Teach() {
         </p>
       </Section>
 
+      <Section title="Which subjects can you teach?">
+        <p className="lead">We are recruiting tutors in these subjects first. Pick yours to see what we look for.</p>
+        <ul className="pillrow">
+          {TEACH_SUBJECTS.map((t) => (
+            <li key={t.slug}>
+              <Link href={`/teach/${t.slug}`}>Teach {t.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
       <Section tone="surface" title="Tutor questions">
         <FaqList items={TUTOR_PAGE_FAQ} />
+        <p style={{ marginTop: 24 }}>
+          More answers for tutors in the <Link href="/faq" className="textlink">help centre</Link>.
+        </p>
       </Section>
 
       <section className="cta on-dark">

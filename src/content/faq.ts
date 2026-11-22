@@ -32,6 +32,10 @@ export function coreFaq(): Faq[] {
       a: "No. A phone works, and your child can write and draw on the whiteboard from it. A laptop or tablet gives more room.",
     },
     {
+      q: "Do we need a separate video-call subscription?",
+      a: "No. Live video, the shared whiteboard and the recording are part of the class on Tiisha. You do not need to pay for or set up a separate video-call service.",
+    },
+    {
       q: "Can I pay in my own currency?",
       a: "Yes. Each tutor sets their own price, and you see it in your currency when you book.",
     },
@@ -333,6 +337,10 @@ export const FAQ_GROUPS: FaqGroup[] = [
           {
             q: "Do we need to install anything?",
             a: "No. You can join a class from the lesson link in a web browser. The apps are optional and add one-tap joining and reminders.",
+          },
+          {
+            q: "Do we need a separate video-call subscription?",
+            a: "No. Live video, the shared whiteboard and the recording are part of the class on Tiisha. You do not need to pay for or set up a separate video-call service.",
           },
           {
             q: "Can my child join a class from a phone?",

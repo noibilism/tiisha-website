@@ -525,3 +525,15 @@ html[data-nav="slow"] .scroll-dots i:last-child { background: #ff7a98; }
   html[data-nav="slow"] .scroll-dots i + i { animation-delay: .18s; }
 }
 @keyframes ii-load { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+/* Guides: updated date and comparison table */
+.meta-line { margin-top: 14px; font-size: 15px; color: var(--ink-muted); }
+.on-dark .meta-line { color: rgba(255, 255, 255, .8); }
+.compare-wrap { margin-top: 28px; overflow-x: auto; }
+.compare { width: 100%; border-collapse: collapse; font-size: 17px; line-height: 1.5; background: var(--surface, #fff); }
+.compare caption { text-align: left; font: 600 20px var(--font-display); padding-bottom: 12px; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 14px 16px; border-bottom: 1px solid var(--line, #d9e2f5); }
+.compare thead th { background: var(--surface-sunken); font: 600 17px var(--font-display); }
+.compare tbody th { font-weight: 700; width: 20%; }
+@media (max-width: 700px) { .compare { font-size: 16px; min-width: 620px; } }
+.faq-aside > div:first-child { flex: 1; min-width: 0; }

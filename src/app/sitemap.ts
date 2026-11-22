@@ -1,14 +1,11 @@
 import type { MetadataRoute } from "next";
-import { SUBJECTS } from "@/content/subjects";
+import { sitePages } from "@/content/pages";
 import { abs } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const entries: MetadataRoute.Sitemap = [{ url: abs("/"), changeFrequency: "weekly", priority: 1 }];
-  for (const p of ["/how-it-works", "/tutor-checks", "/pricing", "/teach", "/faq", "/tutors"]) {
-    entries.push({ url: abs(p), changeFrequency: "monthly", priority: 0.7 });
-  }
-  for (const s of SUBJECTS) {
-    entries.push({ url: abs(`/tutors/${s.slug}`), changeFrequency: "monthly", priority: 0.6 });
-  }
-  return entries;
+  return sitePages().map((p) => ({
+    url: abs(p.path),
+    changeFrequency: p.path === "/" ? "weekly" : "monthly",
+    priority: p.path === "/" ? 1 : p.section === "Core" || p.path === "/teach" ? 0.7 : 0.6,
+  }));
 }

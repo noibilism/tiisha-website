@@ -36,6 +36,7 @@ export function Header() {
               </Link>
             ))}
             <Link href="/tutors">Subjects</Link>
+            <Link href="/guides">Guides</Link>
             <Link href="/#get-the-app">Get the app</Link>
             <Link href={links.signin}>Sign in</Link>
             <Link href={links.signup}>Find a tutor</Link>

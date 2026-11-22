@@ -10,7 +10,7 @@ npm run dev          # http://localhost:3000
 npm run build        # builds and prepares .next/standalone
 npm start            # serves the standalone build (PORT, default 3000)
 npm test             # SEO checks on every built page (run after build)
-npm run lighthouse   # Lighthouse for / and /uk (needs Chrome, set CHROME_PATH if not found)
+npm run lighthouse   # Lighthouse for / and /faq (needs Chrome, set CHROME_PATH if not found)
 npm run typecheck
 ```
 
@@ -30,7 +30,9 @@ npm run typecheck
 
 - `/`: the home page. One global copy set, no country content.
 - `/teach`, `/how-it-works`, `/tutor-checks`, `/pricing`, `/faq`, `/privacy`, `/terms`, and a custom 404.
-- `/tutors` and `/tutors/[subject]`: subject pages (maths, english, science, physics, chemistry, biology, coding).
+- `/tutors` and `/tutors/[subject]`: subject pages (maths, english, science, physics, chemistry, biology, coding, yoruba, arabic).
+- `/teach/[subject]`: tutor recruitment pages (yoruba, arabic, english, maths, science). `/guides` and `/guides/[slug]`: parent guides.
+- `/llms.txt`: plain-text summary for AI assistants, built from the same page list as the sitemap.
 - `/sitemap.xml`, `/robots.txt`, and generated Open Graph images (`next/og`) for the home page and each subject.
 - Old `/us`, `/uk`, `/ca`, `/ng`, `/gh`, `/ke` and the old exam pages redirect with a 301 (see `next.config.ts`).
 
@@ -41,7 +43,7 @@ Country copy is not on the site for now. The removed text is in `docs/country-co
 ## Where the content lives
 
 - `src/content/faq.ts`: core parent FAQ and tutor FAQ. The tutor service fee line is kept apart so it only shows on `/teach`.
-- `src/content/subjects.ts`: subject pages.
+- `src/content/subjects.ts`: subject pages. `teach.ts`: tutor recruitment pages. `guides.ts`: guides. `pages.ts`: the page list behind the sitemap and llms.txt.
 - `src/components/sections.tsx`: the home page sections.
 - `src/lib/seo.ts`: metadata and JSON-LD builders.
 - `src/app/tokens.css`: brand tokens copied from the design system. `src/app/globals.css`: all styles.
@@ -51,3 +53,5 @@ Copy rule: sentence case, no em dashes. `npm test` fails if a built page has an 
 ## What `npm test` checks
 
 For every built HTML page: one h1, title, meta description, canonical, `lang`, Open Graph and Twitter tags, valid JSON-LD with schema.org context, BreadcrumbList on inner pages, FAQ JSON-LD matching visible FAQ text, images with alt, links with text. It also fails on any country, currency, exam or national ID name, any hreflang tag, any fee mention outside `/teach`, a missing 301 for the old country and exam URLs, and a sitemap that does not match the built pages.
+
+The SEO pass added checks for exact canonicals, share images, JSON-LD per page type, heading order, lazy images, body links between pages, unbacked claims, AI-sounding wording, and agreement between robots.txt, sitemap.xml and llms.txt. See `docs/seo.md` for the keyword map and the owner checklist.

@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ClosingCta } from "@/components/sections";
 import { Check } from "@/components/Icons";
 import { SUBJECTS, getSubject } from "@/content/subjects";
+import { getTeachSubject } from "@/content/teach";
 import { links } from "@/lib/config";
 import { faqLd, pageMetadata, serviceLd } from "@/lib/seo";
 
@@ -41,7 +42,8 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
     { name: "Tiisha", path: "/" },
     { name: "Tutors", path: "/tutors" },
     { name: s.name, path },
-  ];  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));  return (
+  ];  const teach = getTeachSubject(["physics", "chemistry", "biology"].includes(s.slug) ? "science" : s.slug);
+  const related = s.related.map((r) => getSubject(r)).filter((r): r is NonNullable<typeof r> => Boolean(r));  return (
     <>
       <PageHero crumbs={crumbs} title={s.h1} lead={s.intro} art={<Duo pose="wave" />}>
         <div className="btn-row">
@@ -54,7 +56,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </div>
       </PageHero>
 
-      <Section title={`What ${s.name.toLowerCase()} tutoring covers`}>
+      <Section title={`What does online ${s.term} tutoring cover?`}>
         <div className="prose">
           {s.what.map((p) => (
             <p key={p.slice(0, 30)}>{p}</p>
@@ -62,7 +64,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </div>
       </Section>
 
-      <Section tone="surface" title="Who it suits">
+      <Section tone="surface" title={`Who is a ${s.term} tutor for?`}>
         <Split reverse art={<Duo pose="read" />}>
         <ul className="checks" style={{ maxWidth: 760 }}>
           {s.suits.map((x) => (
@@ -75,7 +77,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </Split>
       </Section>
 
-      <Section title={`How ${s.name} classes run on Tiisha`}>
+      <Section title={`How do ${s.term} classes work on Tiisha?`}>
         <Split art={<Art name="scene-tablet-tutor" alt="A child learning on a tablet while the tutor teaches on screen" />}>
         <div className="prose">
           <ol>
@@ -83,7 +85,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
               <li key={x}>{x}</li>
             ))}
           </ol>
-          <h3>In {s.name} classes in particular</h3>
+          <h3>In {s.term} classes in particular</h3>
           <ul>
             {s.classes.map((x) => (
               <li key={x}>{x}</li>
@@ -93,11 +95,27 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
         </Split>
       </Section>
 
-      <Section tone="surface" title={`${s.name} questions`}>
+      <Section tone="surface" title={`${s.name} tutoring questions`}>
         <FaqList items={s.faq} />
       </Section>
 
-      <Section title="Related subjects">
+      <Section title="Next steps">
+        <ul className="pillrow">
+          <li>
+            <Link href="/guides/how-to-choose-an-online-tutor">How to choose an online tutor</Link>
+          </li>
+          <li>
+            <Link href="/how-it-works">How Tiisha works</Link>
+          </li>
+          {teach && (
+            <li>
+              <Link href={`/teach/${teach.slug}`}>Teach {teach.name} on Tiisha</Link>
+            </li>
+          )}
+        </ul>
+      </Section>
+
+      <Section tone="surface" title="Related subjects">
         <ul className="pillrow">
           {related.map((r) => (
             <li key={r.slug}>

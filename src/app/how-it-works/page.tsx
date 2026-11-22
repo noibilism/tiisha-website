@@ -46,7 +46,7 @@ export default function HowItWorks() {
         </div>
       </PageHero>
 
-      <Section>
+      <Section title="Four steps to your first class">
         <ol className="steps">
           {STEPS.map(([h, p], i) => (
             <li className="step" key={h}>
@@ -129,6 +129,10 @@ export default function HowItWorks() {
 
       <Section tone="surface" title="Questions parents ask">
         <FaqList items={faqs} />
+        <p style={{ marginTop: 24 }}>
+          More answers in the <Link href="/faq" className="textlink">help centre</Link>, or read our{" "}
+          <Link href="/guides" className="textlink">guides for parents</Link>.
+        </p>
       </Section>
       <ClosingCta mascot />
       <JsonLd

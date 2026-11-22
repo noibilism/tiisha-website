@@ -71,7 +71,12 @@ export default function Pricing() {
 
       <Section tone="surface" title="Pricing questions">
         <div className="faq-aside">
-          <FaqList items={FAQ} />
+          <div>
+            <FaqList items={FAQ} />
+            <p style={{ marginTop: 24 }}>
+              More answers in the <Link href="/faq" className="textlink">help centre</Link>.
+            </p>
+          </div>
           <Duo pose="think" />
         </div>
       </Section>
