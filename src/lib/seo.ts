@@ -51,6 +51,12 @@ export const organizationLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/logo.svg`,
   description: DEFAULT_DESCRIPTION,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: "support@tiisha.com",
+    availableLanguage: "English",
+  },
 };
 
 export const websiteLd = {
@@ -60,6 +66,7 @@ export const websiteLd = {
   name: SITE_NAME,
   url: SITE_URL,
   inLanguage: "en",
+  description: DEFAULT_DESCRIPTION,
   publisher: { "@id": `${SITE_URL}/#organization` },
 };
 
@@ -143,5 +150,22 @@ export function webPageLd(o: { name: string; description: string; path: string }
     description: o.description,
     url: abs(o.path),
     isPartOf: { "@id": `${SITE_URL}/#website` },
+  };
+}
+
+export function articleLd(o: { headline: string; description: string; path: string; published: string; modified: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: o.headline,
+    description: o.description,
+    url: abs(o.path),
+    mainEntityOfPage: abs(o.path),
+    datePublished: o.published,
+    dateModified: o.modified,
+    inLanguage: "en",
+    image: `${abs(o.path)}/opengraph-image`,
+    author: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
 }

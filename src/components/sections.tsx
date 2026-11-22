@@ -54,6 +54,27 @@ export function Hero() {
 
 export { PlatformStrip, PlatformsSection } from "./Platforms";
 
+/** A short, self-contained definition. Search engines and AI assistants quote this kind of block. */
+export function WhatIs() {
+  return (
+    <section id="what-is-tiisha" className="section bg">
+      <div className="wrap">
+        <h2 className="title">What is Tiisha?</h2>
+        <div className="prose">
+          <p>
+            Tiisha is an online tutoring platform. Parents book a verified tutor for live one-to-one classes on a shared whiteboard.
+            Every class is recorded, and classes run inside Tiisha, so there is no extra video-call subscription.
+          </p>
+          <p>
+            Tutors teach from anywhere. Parents see the tutor&apos;s price in their own currency before they book.{" "}
+            <Link href="/how-it-works">See how it works</Link> or <Link href="/tutor-checks">how tutors are checked</Link>.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ExamsStrip({ text = STRIP_TEXT }: { text?: string }) {
   return (
     <section className="strip" aria-label="Curricula and exams">
@@ -227,6 +248,17 @@ export function SubjectLinks() {
                 </li>
               ))}
             </ul>
+            <p style={{ marginTop: 22 }}>
+              New to online tutoring? Read{" "}
+              <Link href="/guides/how-to-choose-an-online-tutor" className="textlink">
+                how to choose an online tutor
+              </Link>{" "}
+              or{" "}
+              <Link href="/guides/what-you-need-for-online-classes" className="textlink">
+                what you need for online classes
+              </Link>
+              .
+            </p>
           </div>
         </Split>
       </div>

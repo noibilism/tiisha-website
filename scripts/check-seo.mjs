@@ -228,7 +228,7 @@ if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was n
     for (const h of toc) if (!root.querySelector(`[id="${(h || "").slice(1)}"]`)) fail("/faq", `table of contents link ${h} has no target`);
 
     const items = root.querySelectorAll("#faq-groups details");
-    if (items.length < 40 || items.length > 60) fail("/faq", `expected 40 to 60 questions, found ${items.length}`);
+    if (items.length < 40 || items.length > 70) fail("/faq", `expected 40 to 70 questions, found ${items.length}`);
     const ids = new Set();
     const visible = new Map();
     for (const d of items) {
@@ -262,6 +262,217 @@ if (!existsSync(join(ROOT, "robots.txt.body"))) fail("robots", "robots.txt was n
     // The search box is added by script, so the server HTML must not ship a dead input.
     if (root.querySelector("#faq-q")) fail("/faq", "search input is in the server HTML, so it would be dead without JavaScript");
   }
+}
+
+// ---------------------------------------------------------------------------------------------
+// SEO pass rules. Each block below maps to a skill from github.com/Illyism/seo-skills (see docs/seo.md).
+// ---------------------------------------------------------------------------------------------
+{
+  const SITE = (process.env.NEXT_PUBLIC_SITE_URL || "https://tiisha.com").replace(/\/+$/, "");
+  const pathOf = (f) => "/" + relative(ROOT, f).replace(/index\.html$/, "").replace(/\.html$/, "");
+  const raw = new Map(pages.map((f) => [pathOf(f), readFileSync(f, "utf8")]));
+  const dom = new Map([...raw].map(([p, h]) => [p, parse(h)]));
+  const isNoindex = (p) => /<meta name="robots" content="[^"]*noindex/.test(raw.get(p));
+  const indexable = [...raw.keys()].filter((p) => p !== "/_not-found" && !isNoindex(p)).sort();
+  const absUrl = (p) => `${SITE}${p === "/" ? "" : p}`;
+  const words = (s) => s.split(/\s+/).filter(Boolean).length;
+
+  // Pages that must exist, and the keyword each one targets (docs/seo.md has the full keyword map).
+  const REQUIRED = [
+    "/", "/how-it-works", "/tutor-checks", "/pricing", "/faq", "/tutors", "/teach", "/guides",
+    "/tutors/maths", "/tutors/english", "/tutors/science", "/tutors/yoruba", "/tutors/arabic",
+    "/teach/yoruba", "/teach/arabic", "/teach/english", "/teach/maths", "/teach/science",
+    "/guides/how-to-choose-an-online-tutor", "/guides/online-tutor-vs-in-person-tutor", "/guides/what-you-need-for-online-classes",
+  ];
+  for (const p of REQUIRED) if (!raw.has(p)) fail(p, "required SEO page was not built");
+  const KEYWORD = { "/": "online tutors", "/pricing": "tutoring", "/teach": "online tutor", "/tutors": "online tutors" };
+  for (const p of indexable) {
+    const m = p.match(/^\/tutors\/([a-z-]+)$/);
+    if (m) KEYWORD[p] = `${m[1]} tutors`;
+    const t = p.match(/^\/teach\/([a-z-]+)$/);
+    if (t) KEYWORD[p] = `${t[1]} tutor`;
+    if (p.startsWith("/guides/")) KEYWORD[p] = "online tutor";
+  }
+  KEYWORD["/guides/what-you-need-for-online-classes"] = "online tutoring";
+
+  const seenTitle = new Map();
+  const seenDesc = new Map();
+  for (const p of indexable) {
+    const root = dom.get(p);
+    const html = raw.get(p);
+    const title = root.querySelector("title")?.text.trim() || "";
+    const desc = root.querySelector('meta[name="description"]')?.getAttribute("content")?.trim() || "";
+
+    // Titles and descriptions: length, unique, keyword near the front of the page.
+    if (title.length < 20 || title.length > 65) fail(p, `title is ${title.length} characters, want 20 to 65`);
+    if (desc.length < 70 || desc.length > 160) fail(p, `description is ${desc.length} characters, want 70 to 160`);
+    if (seenTitle.has(title)) fail(p, `title duplicates ${seenTitle.get(title)}`);
+    seenTitle.set(title, p);
+    if (seenDesc.has(desc)) fail(p, `description duplicates ${seenDesc.get(desc)}`);
+    seenDesc.set(desc, p);
+    const kw = KEYWORD[p];
+    const h1text = root.querySelector("h1")?.text || "";
+    if (kw && !(title + " " + h1text).toLowerCase().includes(kw)) fail(p, `title and h1 lack the target keyword "${kw}"`);
+
+    // Canonical is exact: the production origin, this path, no trailing slash, no query.
+    const canon = root.querySelector('link[rel="canonical"]')?.getAttribute("href");
+    if (canon !== absUrl(p)) fail(p, `canonical is ${canon}, want ${absUrl(p)}`);
+    if (root.querySelector('meta[property="og:url"]')?.getAttribute("content") !== absUrl(p)) fail(p, "og:url differs from the canonical");
+    if (!/^[a-z0-9\-/]*$/.test(p)) fail(p, "URL path must be lowercase letters, digits and hyphens");
+
+    // Share images: Open Graph and Twitter, absolute, sized, with alt, and generated at build time.
+    const og = root.querySelector('meta[property="og:image"]')?.getAttribute("content") || "";
+    if (!og.startsWith(`${SITE}/`)) fail(p, `og:image is not an absolute URL on ${SITE}: ${og}`);
+    else {
+      const ogPath = new URL(og).pathname;
+      if (!existsSync(join(ROOT, `${ogPath}.body`))) fail(p, `og:image ${ogPath} was not generated`);
+      else if (statSync(join(ROOT, `${ogPath}.body`)).size > 300 * 1024) fail(p, `og:image ${ogPath} is over 300 KB`);
+    }
+    for (const sel of ['meta[property="og:image:width"]', 'meta[property="og:image:height"]', 'meta[property="og:image:alt"]', 'meta[name="twitter:image"]'])
+      if (!root.querySelector(sel)) fail(p, `missing ${sel}`);
+    if (root.querySelector('meta[name="twitter:card"]')?.getAttribute("content") !== "summary_large_image") fail(p, "twitter:card must be summary_large_image");
+
+    // Headings: no skipped level, none empty.
+    let prev = 0;
+    for (const h of root.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
+      const level = Number(h.tagName[1]);
+      if (!normalise(h.text)) fail(p, `empty h${level}`);
+      if (prev && level > prev + 1) fail(p, `heading jumps from h${prev} to h${level}: ${normalise(h.text).slice(0, 50)}`);
+      prev = level;
+    }
+
+    // Images: size known up front, lazy loaded.
+    for (const img of root.querySelectorAll("img")) {
+      const src = img.getAttribute("src") || "";
+      if (!img.getAttribute("width") || !img.getAttribute("height")) fail(p, `img ${src} has no width and height`);
+      if (img.getAttribute("loading") !== "lazy") fail(p, `img ${src} is not lazy loaded`);
+    }
+
+    // Structured data.
+    const blocks = root.querySelectorAll('script[type="application/ld+json"]').map((s) => JSON.parse(s.text));
+    const types = blocks.map((b) => b["@type"]);
+    for (const t of ["Organization", "WebSite"]) if (!types.includes(t)) fail(p, `JSON-LD lacks ${t}`);
+    if (p !== "/" && !types.includes("BreadcrumbList")) fail(p, "JSON-LD lacks BreadcrumbList");
+    const ids = new Set(blocks.map((b) => b["@id"]).filter(Boolean));
+    const flat = JSON.stringify(blocks);
+    for (const m of flat.matchAll(/"@id":"([^"]+)"\}/g)) if (!ids.has(m[1])) fail(p, `JSON-LD references ${m[1]}, which is not defined on the page`);
+    if (/"@type":"(Review|AggregateRating|Rating)"|aggregateRating/.test(flat)) fail(p, "JSON-LD has ratings or reviews, which we cannot back");
+    const need = (t) => types.includes(t) || fail(p, `JSON-LD lacks ${t}`);
+    if (p === "/") ["Service", "FAQPage", "SoftwareApplication"].forEach(need);
+    if (/^\/tutors\/[a-z-]+$/.test(p)) ["Service", "FAQPage"].forEach(need);
+    if (/^\/teach\/[a-z-]+$/.test(p)) ["WebPage", "FAQPage"].forEach(need);
+    if (p.startsWith("/guides/")) ["Article", "FAQPage"].forEach(need);
+    const crumb = blocks.find((b) => b["@type"] === "BreadcrumbList");
+    if (crumb) {
+      const items = crumb.itemListElement;
+      if (items.some((it, i) => it.position !== i + 1)) fail(p, "breadcrumb positions are not 1, 2, 3");
+      if (items.at(-1)?.item !== absUrl(p)) fail(p, "last breadcrumb is not this page");
+    }
+    const article = blocks.find((b) => b["@type"] === "Article");
+    if (article && (!article.datePublished || !article.dateModified || !article.image)) fail(p, "Article JSON-LD needs datePublished, dateModified and image");
+
+    // Weight.
+    if (html.length > 200 * 1024) warn(p, `HTML is ${Math.round(html.length / 1024)} KB`);
+  }
+
+  // Answer-first and question headings, for featured snippets and AI answers.
+  for (const p of indexable) {
+    const root = dom.get(p);
+    if (/^\/(guides|tutors)\/[a-z-]+$/.test(p)) {
+      const lead = normalise(root.querySelector("h1 ~ .lead")?.text || "");
+      if (!lead) fail(p, "no lead paragraph under the h1");
+      else if (words(lead) > 45) fail(p, `lead is ${words(lead)} words, the answer should come in the first 45`);
+      if (!root.querySelectorAll("h2").some((h) => normalise(h.text).endsWith("?"))) fail(p, "no h2 phrased as a question");
+    }
+  }
+  {
+    const first = normalise(dom.get("/")?.querySelector("#what-is-tiisha p")?.text || "");
+    if (!first) fail("/", "missing the 'What is Tiisha?' definition block");
+    else if (words(first) > 45) fail("/", "the definition block is over 45 words");
+  }
+
+  // Claims we cannot back, and names we do not compare against.
+  const CLAIMS = [
+    [/\b\d+(\.\d+)?\s?%/, "a percentage"],
+    [/\b(Zoom|Google Meet|Skype|Microsoft Teams|WhatsApp)\b/i, "a video-call brand name"],
+    [/\b(testimonials?|trusted by|as seen on|award[- ]winning|number one|#1|best tutors?|guaranteed?|money[- ]back)\b/i, "an unbacked claim"],
+    [/[★☆]|\b\d(\.\d)?\s?stars?\b|\brated \d/i, "a star rating"],
+    [/\b\d[\d,]*\+?\s+(parents|families|students|tutors|classes|lessons|reviews|children)\b/i, "a count we cannot back"],
+  ];
+  for (const p of [...raw.keys()]) {
+    const root = parse(raw.get(p));
+    for (const el of root.querySelectorAll("script, style")) el.remove();
+    const body = normalise(root.querySelector("main")?.text || "").replace(/Google Play|App Store/g, "");
+    const meta = root.querySelectorAll("meta").map((m) => m.getAttribute("content") || "").join(" ");
+    const scope = `${root.querySelector("title")?.text || ""} ${meta} ${body}`;
+    for (const [re, what] of CLAIMS) {
+      const hit = scope.match(re);
+      if (hit) fail(p, `${what}: "${hit[0]}"`);
+    }
+    if (/\bGoogle\b/.test(scope)) fail(p, 'names Google outside the store button text');
+
+    // Slop: the mechanical rows of the unslop-seo table (AI vocabulary, contrast frames, spaced hyphens, curly quotes).
+    const SLOP = new RegExp(
+      "[\\u2018\\u2019\\u201c\\u201d]|(?<=[A-Za-z0-9,)]) - (?=[A-Za-z0-9(])" +
+        "|\\bnot (just|only) [^.]{1,60}?(\\bbut\\b|[,;] it'?s\\b)|\\bit'?s not [^.,]{1,40}, it'?s\\b" +
+        "|\\b(delve\\w*|pivotal|tapestry|landscape|testament|underscor\\w*|foster\\w*|garner\\w*|interplay|intricate|crucial|vibrant|showcas\\w*|utiliz\\w*|leverag\\w*|seamless\\w*|paradigm|bedrock|nexus|blazing-fast|groundbreaking|game-changing|cutting-edge|revolutionary|world-class|next-generation|robust|serves as|stands as|boasts|in order to|facilitat\\w*|moreover|furthermore|additionally|in today's|dive in|unlock\\w*|elevate\\w*|empower\\w*)\\b",
+      "i",
+    );
+    const slop = body.match(SLOP);
+    if (slop) fail(p, `AI-sounding wording: "${slop[0]}"`);
+  }
+
+  // Internal links: every one resolves, none points at a redirected URL, and every page earns body links from other pages.
+  const redirected = (path) => REDIRECTS.some((r) => new RegExp(`^${r.source.replace(/\/:path\*$/, "(/.*)?")}$`).test(path));
+  const inbound = new Map(indexable.map((p) => [p, new Set()]));
+  for (const p of raw.keys()) {
+    const root = dom.get(p);
+    for (const a of root.querySelectorAll("a[href]")) {
+      const href = a.getAttribute("href") || "";
+      if (!href.startsWith("/") || href.startsWith("//")) continue;
+      const [pathPart, hash] = href.split("#");
+      const target = (pathPart.split("?")[0] || "/").replace(/(.)\/$/, "$1");
+      if (redirected(target)) fail(p, `links to ${href}, which redirects`);
+      else if (!raw.has(target)) fail(p, `links to ${href}, which was not built`);
+      else if (hash && !dom.get(target).querySelector(`[id="${hash}"]`)) fail(p, `links to ${href}, but #${hash} does not exist`);
+      if (a.closest("main") && target !== p) inbound.get(target)?.add(p);
+    }
+  }
+  for (const [p, from] of inbound) if (p !== "/" && from.size < 3) fail(p, `only ${from.size} other page(s) link to it from body copy, want 3 or more`);
+
+  // robots.txt, sitemap.xml and llms.txt agree with each other.
+  const robots = readFileSync(join(ROOT, "robots.txt.body"), "utf8");
+  if (!robots.includes(`Sitemap: ${SITE}/sitemap.xml`)) fail("robots", "Sitemap line is missing or on the wrong origin");
+  if (/^Disallow:\s*\/\s*$/m.test(robots)) fail("robots", "blocks the whole site");
+  const sm = readFileSync(join(ROOT, "sitemap.xml.body"), "utf8");
+  const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  if (new Set(locs).size !== locs.length) fail("sitemap", "has duplicate URLs");
+  for (const l of locs) if (!l.startsWith(SITE) || /[A-Z_?#]|\.html|\/$/.test(l.slice(SITE.length))) fail("sitemap", `unclean URL ${l}`);
+  if (locs.length !== indexable.length) fail("sitemap", `lists ${locs.length} URLs for ${indexable.length} indexable pages`);
+  const llmsPath = join(ROOT, "llms.txt.body");
+  if (!existsSync(llmsPath)) fail("llms.txt", "was not generated");
+  else {
+    const llms = readFileSync(llmsPath, "utf8");
+    if (!/^# Tiisha\n\n> /.test(llms)) fail("llms.txt", "must start with '# Tiisha' and a blockquote summary");
+    for (const l of locs) if (!llms.includes(`(${l})`)) fail("llms.txt", `does not link ${l}`);
+    if (/[—–]/.test(llms)) fail("llms.txt", "contains an em or en dash");
+    if (/\b(Zoom|Google Meet|Skype)\b/i.test(llms)) fail("llms.txt", "names a video-call brand");
+    const m = llms.match(COUNTRY_WORDS);
+    if (m) fail("llms.txt", `country-specific text: ${m[0]}`);
+  }
+
+  // The 404 page is not indexable.
+  if (!/<meta name="robots" content="[^"]*noindex/.test(raw.get("/_not-found") || "")) fail("/_not-found", "404 page must be noindex");
+
+  // Core Web Vitals groundwork: few, small, preloaded fonts, and cacheable static art.
+  for (const p of indexable) {
+    const n = (raw.get(p).match(/<link rel="preload"[^>]*as="font"/g) || []).length;
+    if (n > 2) fail(p, `${n} fonts are preloaded, want 2 or fewer`);
+  }
+  for (const f of readdirSync("src/fonts")) if (statSync(join("src/fonts", f)).size > 40 * 1024) fail("fonts", `${f} is over 40 KB`);
+  const cfg = (await import("../next.config.ts")).default;
+  const headers = await cfg.headers();
+  if (!headers.some((h) => h.source.startsWith("/illustrations") && h.headers.some((x) => /max-age=\d{6,}/.test(x.value)))) fail("next.config", "illustrations need a long Cache-Control");
 }
 
 // Illustration files stay small.

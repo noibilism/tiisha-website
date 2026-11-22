@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Duo } from "@/components/Characters";
 
 import { FaqList } from "@/components/Faq";
@@ -15,12 +16,13 @@ import {
   Safety,
   SubjectLinks,
   TutorChecks,
+  WhatIs,
 } from "@/components/sections";
 import { coreFaq } from "@/content/faq";
 import { DEFAULT_DESCRIPTION, faqLd, pageMetadata, serviceLd, softwareApplicationLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tiisha: a tutor your child will actually learn from",
+  title: "Tiisha: verified online tutors, live and recorded",
   description: DEFAULT_DESCRIPTION,
   path: "/",
   absoluteTitle: true,
@@ -33,6 +35,7 @@ export default function Home() {
       <Hero />
       <PlatformStrip />
       <ExamsStrip />
+      <WhatIs />
       <HowItWorks />
       <TutorChecks />
       <ClassAndProgress />
@@ -44,7 +47,12 @@ export default function Home() {
         <div className="wrap">
           <h2 className="title">Questions parents ask</h2>
           <div className="faq-aside">
-            <FaqList items={faqs} />
+            <div>
+              <FaqList items={faqs} />
+              <p style={{ marginTop: 24 }}>
+                More answers in the <Link href="/faq" className="textlink">help centre</Link>.
+              </p>
+            </div>
             <Duo pose="think" />
           </div>
         </div>

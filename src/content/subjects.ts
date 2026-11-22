@@ -4,6 +4,10 @@ export type Subject = {
   slug: string;
   /** Name used in links and breadcrumbs. */
   name: string;
+  /** How the subject reads in the middle of a sentence: "maths", "English", "Yoruba". */
+  term: string;
+  /** Hub grouping. */
+  group: "school" | "language";
   /** h1 */
   h1: string;
   /** <title> without the brand suffix */
@@ -21,6 +25,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "maths",
     name: "Maths",
+    term: "maths",
+    group: "school",
     h1: "Online maths tutors, live and one to one",
     title: "Online maths tutors for every grade and exam",
     description:
@@ -61,6 +67,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "english",
     name: "English",
+    term: "English",
+    group: "school",
     h1: "Online English tutors, live and one to one",
     title: "Online English tutors for reading, writing and exams",
     description:
@@ -96,11 +104,13 @@ export const SUBJECTS: Subject[] = [
         a: "Yes. The whiteboard works on a phone, tablet or laptop, and your child can draw on it from any of them. A bigger screen gives more room.",
       },
     ],
-    related: ["maths", "science", "coding"],
+    related: ["maths", "science", "yoruba", "arabic"],
   },
   {
     slug: "science",
     name: "Science",
+    term: "science",
+    group: "school",
     h1: "Online science tutors, live and one to one",
     title: "Online science tutors for school and exams",
     description:
@@ -140,6 +150,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "physics",
     name: "Physics",
+    term: "physics",
+    group: "school",
     h1: "Online physics tutors, live and one to one",
     title: "Online physics tutors for school and exams",
     description:
@@ -180,6 +192,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "chemistry",
     name: "Chemistry",
+    term: "chemistry",
+    group: "school",
     h1: "Online chemistry tutors, live and one to one",
     title: "Online chemistry tutors for school and exams",
     description:
@@ -220,6 +234,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "biology",
     name: "Biology",
+    term: "biology",
+    group: "school",
     h1: "Online biology tutors, live and one to one",
     title: "Online biology tutors for school and exams",
     description:
@@ -260,6 +276,8 @@ export const SUBJECTS: Subject[] = [
   {
     slug: "coding",
     name: "Coding",
+    term: "coding",
+    group: "school",
     h1: "Online coding tutors for children, live and one to one",
     title: "Online coding tutors for children and teenagers",
     description:
@@ -296,6 +314,90 @@ export const SUBJECTS: Subject[] = [
       },
     ],
     related: ["maths", "science", "physics"],
+  },
+  {
+    slug: "yoruba",
+    name: "Yoruba",
+    term: "Yoruba",
+    group: "language",
+    h1: "Online Yoruba tutors for children, live and one to one",
+    title: "Online Yoruba tutors for children",
+    description:
+      "Verified online Yoruba tutors for live one-to-one classes. Speaking, reading and writing for children, wherever you live. Every class recorded.",
+    intro:
+      "Many children who grow up away from home understand the language they hear at home but do not speak, read or write it. A tutor can build all three at your child's pace.",
+    what: [
+      "Yoruba tutoring can cover speaking and listening, reading, writing with tone marks, vocabulary, stories and proverbs. For some students it also means preparing for a school or national exam in Yoruba.",
+      "Tutors list the levels and age groups they teach, so you can look for someone who fits where your child is now.",
+    ],
+    suits: [
+      "A child who understands Yoruba at home but is shy about speaking it.",
+      "A child who wants to read and write Yoruba, including the tone marks.",
+      "A student taking Yoruba as a school or exam subject.",
+      "A parent who wants their child to talk with grandparents and family in Yoruba.",
+    ],
+    classes: [
+      "The tutor writes words, phrases and tone marks live on the shared whiteboard, and your child writes alongside.",
+      "Classes mix conversation, reading short texts and the vocabulary your child will use with family.",
+      "Feedback after each class lists the words and phrases to practise before the next one.",
+    ],
+    faq: [
+      {
+        q: "Can my child learn Yoruba if nobody speaks it at home?",
+        a: "Yes. A tutor can start from greetings, numbers and everyday phrases. Tell the tutor your child's starting point in the first class.",
+      },
+      {
+        q: "Do Yoruba tutors teach reading and writing as well as speaking?",
+        a: "Tutors list what they teach. Check each profile for speaking, reading and writing, and ask in the first class if you want a particular mix.",
+      },
+      {
+        q: "What age can start Yoruba classes?",
+        a: "Tutors list the age groups they teach. Choose your child's age group when you search and we show tutors who work with it.",
+      },
+    ],
+    related: ["arabic", "english", "maths"],
+  },
+  {
+    slug: "arabic",
+    name: "Arabic",
+    term: "Arabic",
+    group: "language",
+    h1: "Online Arabic tutors for children, live and one to one",
+    title: "Online Arabic tutors for children",
+    description:
+      "Verified online Arabic tutors for live one-to-one classes. Alphabet, reading, writing and speaking for children, wherever you live. Every class recorded.",
+    intro:
+      "Arabic rewards steady practice: a new script, new sounds and a lot of repetition. In a one-to-one class a tutor sets the pace and corrects pronunciation as it happens.",
+    what: [
+      "Arabic tutoring can cover the alphabet and handwriting, reading, vocabulary, speaking and listening, and grammar. Tutors list whether they teach Modern Standard Arabic, a spoken dialect or reading the Quran, and the levels they teach.",
+      "Arabic is written from right to left. On a shared whiteboard your child sees each letter formed in the right direction and writes it back.",
+    ],
+    suits: [
+      "A beginner learning the alphabet and first words.",
+      "A child who wants to read and write Arabic with confidence.",
+      "A student taking Arabic as a school subject or preparing for an Arabic exam.",
+      "A family that wants a child to read the Quran with a tutor who teaches it.",
+    ],
+    classes: [
+      "The tutor writes letters and words live, and your child copies them on the whiteboard.",
+      "Pronunciation is practised aloud, with the tutor correcting as your child speaks.",
+      "Feedback after each class lists the letters, words or passages to practise.",
+    ],
+    faq: [
+      {
+        q: "Which kind of Arabic will my child learn?",
+        a: "That depends on the tutor and your goals. Tutors list whether they teach Modern Standard Arabic, a dialect or Quranic reading. Check each profile and say what you want in the first class.",
+      },
+      {
+        q: "Can a complete beginner start with the alphabet?",
+        a: "Yes. A tutor can begin with the letters and their sounds, then move to words and short sentences at your child's pace.",
+      },
+      {
+        q: "Can my child practise Arabic handwriting on a phone?",
+        a: "Yes. The whiteboard works on a phone, tablet or laptop. A bigger screen gives more room to write.",
+      },
+    ],
+    related: ["yoruba", "english", "maths"],
   },
 ];
 

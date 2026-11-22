@@ -1,7 +1,7 @@
 import { ogImage, OG_SIZE } from "@/lib/og";
 import { SUBJECTS, getSubject } from "@/content/subjects";
 
-export const alt = "Tiisha online tutors";
+export const alt = "Tiisha online tutors by subject";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
